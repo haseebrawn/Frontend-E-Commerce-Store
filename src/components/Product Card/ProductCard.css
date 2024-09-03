@@ -1,0 +1,70 @@
+.border-none {
+    border: none !important;
+}
+.card{
+    margin-bottom: 15px;
+}
+.size{
+    background-color: #f3f3f3;
+    color: #000000;
+    padding: 4px 10px;
+    margin-right: 8px;
+    font-size: 12px;
+    font-weight: 600;
+}
+.product_title{
+    color: #616161;
+    font-size: 17px !important;
+    text-align: left;
+}
+.cardrating{
+    display: block !important;
+    margin-bottom: 3px;
+}
+.price{
+    color: #616161;
+    font-size: 13px;
+    padding-right: 5px;
+    margin-bottom: 7px;
+}
+.hidden{
+    clip: rect(0, 0, 0, 0);
+    overflow: hidden;
+    position: absolute;
+    height: 1px;
+    width: 1px;
+}
+.hidden_regular{
+    text-decoration: line-through;
+    margin-right: 5px;
+}
+.hidden_save{
+    color: #d70101;
+    margin-left: 7px;
+}
+.card-body{
+    padding: 7px 5px 6px !important;
+}
+.card-text{
+    text-align: left;
+}
+.size {
+    padding: 5px 10px;
+    margin: 0 5px;
+    background-color: #aaa;
+    /* border: 1px solid #000; */
+    cursor: pointer;
+  }
+  
+  .available {
+    background-color: #aaa; /* or whatever you want */
+    color: #000;
+  }
+  
+  .unavailable {
+    background-color: #e5e5e5; /* light gray */
+    color: #aaa; /* gray */
+    cursor: pointer;
+  }
+  
+  

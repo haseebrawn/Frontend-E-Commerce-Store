@@ -1,0 +1,125 @@
+
+.footer_box_social_logo{
+    font-size: 15px;
+    padding-top: 26px;
+}
+.ul_footer{
+    list-style: none outside;
+    padding: 5px;
+}
+.ul_footer a{
+    color: #ffffff;
+    text-decoration: none;
+}
+.footer_box_discover{
+    padding: 9px;
+}
+.li_footer{
+    padding: 6px;
+    text-align: left;
+}
+.h3_footer{
+    text-align: left;
+    padding-left: 11px;
+    font-family: sans-serif;
+}
+.para{
+    font-weight: bold;
+    font-size: 16px;
+    font-family: sans-serif;
+}
+
+.footer{
+    width: 100%;
+    padding-block: 1.5rem;
+    position: relative;
+    background-color: #111111;
+    color: #ffffff;
+    padding-top: 50px;
+    padding-bottom: 20px;
+   
+}
+
+
+.footer_box{
+    width: 90%;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 6.2fr repeat(3, 3fr);
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 3rem;
+}
+.footer_logo{
+    margin-bottom: 26.66667px;
+}
+.footer_logo img{
+    display: block;
+    max-height: 100%;
+    transform: translateZ(0);
+    max-width: 35%;
+}
+.log_social{
+    padding-top: 38px;
+}
+
+/* //SOCIAL */
+.footer_social{
+    display: flex;
+    gap: 1.3rem;
+    font-size: 1.5rem;
+    align-items: center;
+}
+
+
+.footer_social a{
+    padding: .5rem;
+    border-radius: 50%;
+    transition:  all .3s ease-in;
+    display: grid;
+    color: #ffffff;
+}
+.strong{
+    text-decoration: none;
+    border-bottom: 2px solid;
+    border-bottom-color: rgb(248 249 249 / 10%);
+    position: relative;
+    color: #ffffff;
+}
+
+.strong::after {
+    content: "";
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 100%;
+    border-bottom: 2px solid transparent;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.strong:hover::after {
+    border-color: #ffffff;
+    transform: scaleX(1);
+}
+.footer_box_social_logo a{
+    color: #ffffff;
+}
+
+
+
+/* //MEDIA QUERY */
+@media screen and (max-width: 45em) {
+    .footer_box{
+        width: 90%;
+        grid-template-columns: 1fr 2fr;
+    }
+}
+
+@media screen and (max-width: 35em) {
+    .footer_box{
+        width: 90%;
+        grid-template-columns: 1fr;
+    }
+}

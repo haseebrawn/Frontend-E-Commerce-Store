@@ -1,0 +1,71 @@
+.contact-form-container{
+    margin-top: 10px;
+}
+.contact-form {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.contact-form .title{
+    font-size: 10px !important;
+    /* margin-bottom: 1rem; */
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 0 !important;
+}
+.question-header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.contact-form .form-group {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+}
+
+.contact-form input[type="text"], 
+.contact-form input[type="email"] {
+    width: 48%;
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.contact-form textarea {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    height: 100px;
+}
+
+.contact-form button {
+    display: flex;
+    background-color: #000;
+    color: #fff;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+.contact-form button:hover{
+    background: url('../../../public/arrow_white.png');
+   background-repeat: no-repeat;
+   text-align: right;
+   background-position: right center;
+   color: #fff !important;
+   background-color: #000 !important;
+   padding-right: 40px;
+}
+
+
+
+@media (min-width: 1200px) {
+    .h4, h4 {
+        font-size: 15px;
+        margin-top: 13px;
+    }
+}

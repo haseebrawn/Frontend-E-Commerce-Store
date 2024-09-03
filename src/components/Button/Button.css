@@ -1,0 +1,37 @@
+.btn_Shop{
+    background-color: transparent ;
+     border: 2px solid #fff;
+     color: #ffffff;
+     display: inline-block;
+     overflow: hidden;
+     height: 49px;
+     padding: 11px 20px;
+     margin: 0;
+     width: auto;
+     min-width: 90px;
+     line-height: 1.42;
+     font-size: 16px;
+     font-weight: bold;
+     text-decoration: none;
+     text-align: center;
+     vertical-align: middle;
+     white-space: normal;
+     cursor: pointer;
+     position: relative;
+     -webkit-user-select: none;
+     user-select: none;
+     border-radius: 0;
+     color: #ffffff;
+     background: #111111;
+     background: var(--colorBtnPrimary);
+     transition: padding-right 0.3s, 
+ }
+ .btn_Shop:hover{
+   background-image: url('//frontend/public/tick-logo.png');
+   background-repeat: no-repeat;
+   text-align: right;
+   background-position: right center;
+   color: black;
+   background-color: #ffffff;
+   padding-right: 40px;
+ }

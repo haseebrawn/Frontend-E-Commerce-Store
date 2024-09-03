@@ -1,0 +1,59 @@
+.aboutus-section{
+    min-height: 600px;
+    margin-top: 15px;
+}
+.about-page{
+    padding-top: 60px;
+    padding-bottom: 60px;
+    padding: 0 40px;
+    max-width: 845px;
+    margin: 0 auto;
+}
+.about-header{
+    text-align: center;
+    margin-bottom: 50px;
+}
+.aboutheader-title{
+    margin-bottom: 0px;
+    font-size: 35px;
+    font-family: ITC Avant Garde Gothic;
+}
+.about-paragraph{
+    /* font-family: Futura; */
+    color: #1c1d1d;
+    letter-spacing: 0.025em;
+    line-height: 1.6;
+    font-size: 15px;
+}
+.about-paragraph p{
+    margin-bottom: 25px;
+    font-family: Futura ;
+}
+p {
+   margin: 0 0 20px 0;
+}
+.about-paragraph a{
+    text-decoration: none;
+    border-bottom: 2px solid;
+    border-bottom-color: rgba(28, 29, 29, 0.1);
+    position: relative;
+    color: #1c1d1d;
+}
+
+.about-paragraph a::after {
+    content: "";
+    position: absolute;
+    bottom: -2px; 
+    left: 0;
+    width: 100%;
+    border-bottom: 2px solid transparent; 
+    transform: scaleX(0); 
+    transform-origin: left; 
+    transition: transform 0.3s ease, border-color 0.3s ease; 
+}
+
+/* Change the border color and scale on hover */
+.about-paragraph a:hover::after {
+    border-color: #111111; /* Change border color on hover */
+    transform: scaleX(1); /* Scale up the pseudo-element on hover */
+}
