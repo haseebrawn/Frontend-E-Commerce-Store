@@ -1,12 +1,42 @@
+.review-container{
+    max-width: 1180px;
+    padding: 20px;
+    margin: 0 auto;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 80px;
+}
+.review-summary{
+  border-bottom: 1px solid #ccc;
+}
+.rating-overview{
+    /* display: flex; */
+    float: left;
+    padding: 4px 16px;
+    margin: 0 24px;
+    font-size: 16px;
+    border-left: 1px solid #eee;
+    border-right: 1px solid #eee;
+    text-align: justify;
+}
+.average-rating{
+  float: left;
+  text-align: left;
+}
+.write-btn{
+    background: none;
+    border: 1px solid #ccc;
+    padding: 5px;
+}
 /* General form styling */
 form {
-  max-width: 1180px;
-  margin: 0 auto;
-  padding: 20px;
-  border: 1px solid #ccc;
+  /* max-width: 1180px; */
+  /* margin: 0 auto; */
+  /* padding: 20px; */
+  /* border: 1px solid #ccc; */
   border-radius: 8px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  margin-bottom: 80px;
+  /* box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); */
+  /* margin-bottom: 80px; */
 }
 
 /* Heading */

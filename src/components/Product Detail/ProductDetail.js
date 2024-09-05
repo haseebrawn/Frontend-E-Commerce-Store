@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import './ProductDetail.css';
 import ContactForm from '../ContactForm/ContactForm';
+import ReviewForm from '../ReviewForm/ReviewForm';
 
 const ProductDetail = () => {
   const { id } = useParams();
@@ -55,6 +56,9 @@ const ProductDetail = () => {
   };
 
   return (
+    <>
+
+    
     <div className="product-detail">
       <div className="product-images">
         <img src={`${process.env.REACT_APP_PORT}${product.images}`} alt={product.name} className="main-image" />
@@ -103,6 +107,10 @@ const ProductDetail = () => {
         <ContactForm />
       </div>
     </div>
+    <div>
+    <ReviewForm />
+    </div>
+    </>
   );
 };
 
