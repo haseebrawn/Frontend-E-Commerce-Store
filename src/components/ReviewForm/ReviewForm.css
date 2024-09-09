@@ -19,6 +19,27 @@
     border-right: 1px solid #eee;
     text-align: justify;
 }
+.render-start{
+     display: flex;
+     gap: 15px;
+}
+.row-main{
+  margin-bottom: 30px;
+}
+/* ReviewForm.css */
+
+/* Style for filled stars */
+.filled-star {
+  color: #ffc107; /* Yellow color for filled stars */
+  font-size: 20px; /* Adjust size as per your design */
+}
+
+/* Style for empty stars */
+.empty-star {
+  color: #e4e5e9; /* Light gray color for empty stars */
+  font-size: 20px; /* Adjust size as per your design */
+}
+
 .average-rating{
   float: left;
   text-align: left;
@@ -28,22 +49,23 @@
     border: 1px solid #ccc;
     padding: 5px;
 }
+.btn-write{
+  text-align: right;
+}
 /* General form styling */
 form {
-  /* max-width: 1180px; */
-  /* margin: 0 auto; */
-  /* padding: 20px; */
-  /* border: 1px solid #ccc; */
+  margin-top: 25px;
   border-radius: 8px;
-  /* box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); */
-  /* margin-bottom: 80px; */
+  
 }
 
 /* Heading */
 h2 {
-  text-align: left;
-  font-size: 1.5rem;
-  margin-bottom: 20px;
+    text-align: left;
+    font-size: 35px;
+    margin-bottom: 20px;
+    font-family: system-ui;
+    font-weight: bold;
 }
 
 /* Form fields */

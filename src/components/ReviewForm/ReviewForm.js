@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
-import "./ReviewForm.css"; // Import your CSS file
+import "./ReviewForm.css"; 
 import { Row, Col } from "react-bootstrap";
 
-const ReviewForm = () => {
+const ReviewForm = ({ productId }) => {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -14,7 +14,23 @@ const ReviewForm = () => {
     mediaPreview: null,
   });
 
+  const [reviews, setReviews] = useState([]);
   const [isFormVisible, setIsFormVisible] = useState(false);
+
+  useEffect(() => {
+    // Fetch reviews from API based on productId
+    const fetchReviews = async () => {
+      try {
+        const response = await axios.get(`${process.env.REACT_APP_PORT}/api/product/reviews`);
+        // const response = await axios.get(`${process.env.REACT_APP_PORT}/api/product/${productId}/reviews`);
+        setReviews(response.data);
+      } catch (error) {
+        console.error("Error fetching reviews:", error);
+      }
+    };
+
+    fetchReviews();
+  });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -53,19 +69,19 @@ const ReviewForm = () => {
     event.preventDefault();
 
     const reviewData = new FormData();
-    reviewData.append('name', formData.name);
-    reviewData.append('email', formData.email);
-    reviewData.append('rating', formData.rating);
-    reviewData.append('title', formData.title);
-    reviewData.append('review', formData.review);
+    reviewData.append("name", formData.name);
+    reviewData.append("email", formData.email);
+    reviewData.append("rating", formData.rating);
+    reviewData.append("title", formData.title);
+    reviewData.append("review", formData.review);
     if (formData.media) {
-      reviewData.append('media', formData.media);
+      reviewData.append("media", formData.media);
     }
 
     try {
       const response = await axios.post(`${process.env.REACT_APP_PORT}/api/product/reviews`, reviewData, {
         headers: {
-          'Content-Type': 'multipart/form-data',
+          "Content-Type": "multipart/form-data",
         },
       });
 
@@ -82,43 +98,66 @@ const ReviewForm = () => {
         mediaPreview: null,
       });
 
+      // // Refetch reviews after submitting
+      // const updatedReviews = await axios.get(`${process.env.REACT_APP_PORT}/api/product/reviews`);
+      // // const updatedReviews = await axios.get(`${process.env.REACT_APP_PORT}/api/product/${productId}/reviews`);
+      // setReviews(updatedReviews.data);
+
     } catch (error) {
-      console.error('Error submitting review:', error);
+      console.error("Error submitting review:", error);
     }
+  };
+
+  const renderStars = (rating) => {
+    return (
+      <div className="rating">
+        {[1, 2, 3, 4, 5].map((star) => (
+          <span key={star} className={star <= rating ? "filled-star" : "empty-star"}>
+            ⭐
+          </span>
+        ))}
+      </div>
+    );
   };
 
   return (
     <div className="review-container">
       <div className="review-summary">
-      <div className="review-title">
-      <h2>Customer Reviews</h2>
-      </div>
-   
-       <Row>
-        <Col lg={2}> 
-        <div className="average-rating">
-            <span>⭐⭐⭐⭐⭐</span> <br />
-            <span>Based on 6 reviews</span>
+        <div className="review-title">
+          <h2>Customer Reviews</h2>
         </div>
-        </Col>
-        <Col lg={4}>
-        <div className="rating-overview">
-          <div className="rating-breakdown">
-            {/* Replace this with a loop to dynamically generate based on data */}
-            <div><span>⭐⭐⭐⭐⭐</span> <span>83% (5)</span></div>
-            <div><span>⭐⭐⭐⭐⭐</span> <span>17% (1)</span></div>
-            <div><span>⭐⭐⭐⭐⭐</span> <span>0% (0)</span></div>
-            <div><span>⭐⭐⭐⭐⭐</span> <span>0% (0)</span></div>
-            <div><span>⭐⭐⭐⭐⭐</span> <span>0% (0)</span></div>
-          </div>
-        </div>
-        </Col>
-        <Col lg={6}>
-        <button className="write-btn" onClick={() => setIsFormVisible(!isFormVisible)}>
-          {isFormVisible ? "Cancel Review" : "Write a Review"}
-        </button>
-        </Col>
-       </Row>
+
+        <Row className="row-main">
+          <Col lg={2}>
+            <div className="average-rating">
+              {/* Display average rating dynamically */}
+              <span>
+                {reviews.length > 0 ? renderStars(reviews.reduce((acc, review) => acc + review.rating, 0) / reviews.length) : renderStars(0)}
+              </span>
+              <span>Based on {reviews.length} reviews</span>
+            </div>
+          </Col>
+          <Col lg={4}>
+            <div className="rating-overview">
+              <div className="rating-breakdown">
+                {[5, 4, 3, 2, 1].map((star) => {
+                  const count = reviews.filter((review) => review.rating === star).length;
+                  const percentage = reviews.length ? (count / reviews.length) * 100 : 0;
+                  return (
+                    <div className="render-start" key={star}>
+                      <span>{renderStars(star)}</span> <span>{percentage.toFixed(0)}% ({count})</span>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          </Col>
+          <Col lg={6} className="btn-write">
+            <button className="write-btn" onClick={() => setIsFormVisible(!isFormVisible)}>
+              {isFormVisible ? "Cancel Review" : "Write a Review"}
+            </button>
+          </Col>
+        </Row>
       </div>
 
       {isFormVisible && (
@@ -130,7 +169,7 @@ const ReviewForm = () => {
               name="name"
               value={formData.name}
               onChange={handleChange}
-              placeholder="Enter your name"
+              placeholder="Enter your name (public)"
               required
             />
           </div>
@@ -141,7 +180,7 @@ const ReviewForm = () => {
               name="email"
               value={formData.email}
               onChange={handleChange}
-              placeholder="Enter your email"
+              placeholder="Enter your email (private)"
               required
             />
           </div>
