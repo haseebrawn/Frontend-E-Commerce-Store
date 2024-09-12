@@ -3,7 +3,7 @@ import axios from "axios";
 import "./ReviewForm.css"; 
 import { Row, Col } from "react-bootstrap";
 
-const ReviewForm = ({ productId }) => {
+const ReviewForm = () => {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -18,19 +18,27 @@ const ReviewForm = ({ productId }) => {
   const [isFormVisible, setIsFormVisible] = useState(false);
 
   useEffect(() => {
-    // Fetch reviews from API based on productId
     const fetchReviews = async () => {
       try {
-        const response = await axios.get(`${process.env.REACT_APP_PORT}/api/product/reviews`);
-        // const response = await axios.get(`${process.env.REACT_APP_PORT}/api/product/${productId}/reviews`);
-        setReviews(response.data);
+        const response = await axios.get(`${process.env.REACT_APP_PORT}/api/review/reviews`);
+        console.log("Full API response:", response.data);
+
+        const reviewData = response.data?.data?.review || []; // Safely access the review array
+        if (Array.isArray(reviewData)) {
+          setReviews(reviewData);
+        } else {
+          setReviews([]);
+        }
+
+        console.log("Fetched reviews:", reviewData);
       } catch (error) {
         console.error("Error fetching reviews:", error);
+        setReviews([]);
       }
     };
 
     fetchReviews();
-  });
+  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -79,13 +87,13 @@ const ReviewForm = ({ productId }) => {
     }
 
     try {
-      const response = await axios.post(`${process.env.REACT_APP_PORT}/api/product/reviews`, reviewData, {
+      const response = await axios.post(`${process.env.REACT_APP_PORT}/api/review/reviews`, reviewData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
       });
 
-      console.log(response.data);
+      console.log("Review submitted:", response.data);
 
       // Reset the form fields
       setFormData({
@@ -98,11 +106,11 @@ const ReviewForm = ({ productId }) => {
         mediaPreview: null,
       });
 
-      // // Refetch reviews after submitting
-      // const updatedReviews = await axios.get(`${process.env.REACT_APP_PORT}/api/product/reviews`);
-      // // const updatedReviews = await axios.get(`${process.env.REACT_APP_PORT}/api/product/${productId}/reviews`);
-      // setReviews(updatedReviews.data);
+      // Refetch reviews after submitting
+      const updatedReviews = await axios.get(`${process.env.REACT_APP_PORT}/api/review/reviews`);
+      const reviewArray = updatedReviews.data?.data?.review || []; // Safely access the review array
 
+      setReviews(reviewArray);
     } catch (error) {
       console.error("Error submitting review:", error);
     }
@@ -130,7 +138,6 @@ const ReviewForm = ({ productId }) => {
         <Row className="row-main">
           <Col lg={2}>
             <div className="average-rating">
-              {/* Display average rating dynamically */}
               <span>
                 {reviews.length > 0 ? renderStars(reviews.reduce((acc, review) => acc + review.rating, 0) / reviews.length) : renderStars(0)}
               </span>
@@ -230,7 +237,7 @@ const ReviewForm = ({ productId }) => {
             </div>
             {formData.mediaPreview && (
               <div className="preview-container">
-                {formData.media.type.startsWith("image/") ? (
+                {formData.media?.type.startsWith("image/") ? (
                   <img src={formData.mediaPreview} alt="Media Preview" />
                 ) : (
                   <video src={formData.mediaPreview} controls />
@@ -240,14 +247,28 @@ const ReviewForm = ({ productId }) => {
           </div>
           <div>
             <p className="reviewpara">
-              How we use your data: We'll only contact you about the review you
-              left, and only if necessary. By submitting your review, you agree to
-              Judge.me's terms, privacy and content policies.
+              How we use your data: We'll only contact you about the review you left, and only if necessary. By submitting your review, you agree to Judge.me's terms, privacy, and content policies.
             </p>
           </div>
           <button type="submit">Submit Review</button>
         </form>
       )}
+
+      <Row>
+        {reviews.map((review) => (
+          <div key={review._id} className="review-item col-lg-4">
+            <div className="review-header">
+              <h5>{review.name}</h5>
+              <span className="verified-buyer">Verified Buyer</span>
+              <div>{renderStars(review.rating)}</div>
+            </div>
+            <div className="review-content">
+              <h5>{review.title}</h5>
+              <p>{review.review}</p>
+            </div>
+          </div>
+        ))}
+      </Row>
     </div>
   );
 };

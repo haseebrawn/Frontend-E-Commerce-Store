@@ -31,13 +31,13 @@
 /* Style for filled stars */
 .filled-star {
   color: #ffc107; /* Yellow color for filled stars */
-  font-size: 20px; /* Adjust size as per your design */
+  font-size: 15px; /* Adjust size as per your design */
 }
 
 /* Style for empty stars */
 .empty-star {
   color: #e4e5e9; /* Light gray color for empty stars */
-  font-size: 20px; /* Adjust size as per your design */
+  font-size: 15px; /* Adjust size as per your design */
 }
 
 .average-rating{
@@ -55,7 +55,8 @@
 /* General form styling */
 form {
   margin-top: 25px;
-  border-radius: 8px;
+  border-bottom: 1px solid #ccc;
+  margin-bottom: 5px;
   
 }
 
@@ -111,15 +112,15 @@ textarea {
 
 .rating label {
   position: relative;
-  width: 30px;
-  height: 30px;
+  width: 25px;
+  height: 15px;
   cursor: pointer;
 }
 
 .rating label:before {
   content: "\2605"; /* Unicode for star */
   position: absolute;
-  font-size: 30px;
+  font-size: 20px;
   color: #ccc;
 }
 
@@ -146,17 +147,31 @@ input[type="file"] {
   border-radius: 5px;
   cursor: pointer;
   text-align: center;
-  width: 15%;
-  height: 130px; /* Adjust height based on the image */
+  width: 200px; /* Set a fixed width */
+  height: 130px; /* Set a fixed height */
   position: relative;
   color: transparent;
   display: flex;
   justify-content: center;
   align-items: center;
-  background-image: url('/public//camera-icon.png') !important; 
-  background-size: 50px 50px; /* Adjust size according to the icon */
+  background-color: #fff;
+}
+
+input[type="file"]::before {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 50px; /* Adjust size according to the icon */
+  height: 50px;
+  background-image: url('/public/camera-icon.png');
+  background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
+  z-index: 3;
+  filter: opacity(0.2);
 }
 
 input[type="file"]::file-selector-button {
@@ -172,14 +187,12 @@ input[type="file"]::file-selector-button {
   width: 100%;
   height: 100%;
   outline: none;
-  z-index: 2;
+  z-index: 2; /* Ensuring the button stays clickable */
 }
 
 input[type="file"]:hover::file-selector-button {
   background-color: #f0f0f0;
 }
-
-
 
 
 /* Review paragraph */
@@ -199,6 +212,7 @@ button[type="submit"] {
   cursor: pointer;
   display: flex;
   justify-content: center;
+  margin-bottom: 15px;
 }
 
 button[type="submit"]:hover {
@@ -234,39 +248,6 @@ button[type="submit"]:hover {
   gap: 20px; /* Adjust the gap between the input field and preview */
 }
 
-.file-input-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  padding: 10px;
-  cursor: pointer;
-  width: 200px; /* Set a fixed width */
-  height: 130px; /* Set a fixed height */
-  text-align: center;
-  position: relative;
-  background: #f9f9f9;
-  
-}
-
-/* .input-file{ */
-  /* background-image: url('/public//camera-icon.png') !important; 
-  background-size: 50px 50px; /* Adjust size according to the icon */
-  /* background-position: center;
-  background-repeat: no-repeat; */ 
-/* } */
-
-.file-input-container input[type="file"] {
-  opacity: 0;
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  cursor: pointer;
-}
 
 .preview-container {
   width: 200px; /* Same as the file input width */
@@ -284,3 +265,31 @@ button[type="submit"]:hover {
   max-width: 100%;
   max-height: 100%;
 }
+
+
+.review-item {
+  background-color: #f8f8f8;
+  border: 1px solid #ddd;
+  padding: 15px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  text-align: left;
+  margin-top: 20px;
+  margin-right: 5px;
+  margin-left: 5px;
+}
+
+.reviews-list {
+  margin-top: 15px;
+}
+
+.review-content {
+  margin-top: 15px;
+}
+.verified-buyer {
+  color: #ffffff;
+  font-size: 12px;
+  background-color: #000000;
+  padding: 0 5px 0 5px;
+}
+
