@@ -21,16 +21,12 @@ const ReviewForm = () => {
     const fetchReviews = async () => {
       try {
         const response = await axios.get(`${process.env.REACT_APP_PORT}/api/review/reviews`);
-        console.log("Full API response:", response.data);
-
-        const reviewData = response.data?.data?.review || []; // Safely access the review array
+        const reviewData = response.data?.data?.review || [];
         if (Array.isArray(reviewData)) {
           setReviews(reviewData);
         } else {
           setReviews([]);
         }
-
-        console.log("Fetched reviews:", reviewData);
       } catch (error) {
         console.error("Error fetching reviews:", error);
         setReviews([]);
@@ -93,9 +89,7 @@ const ReviewForm = () => {
         },
       });
 
-      console.log("Review submitted:", response.data);
-
-      // Reset the form fields
+      // Reset the form
       setFormData({
         name: "",
         email: "",
@@ -106,10 +100,9 @@ const ReviewForm = () => {
         mediaPreview: null,
       });
 
-      // Refetch reviews after submitting
+      // Refetch reviews
       const updatedReviews = await axios.get(`${process.env.REACT_APP_PORT}/api/review/reviews`);
-      const reviewArray = updatedReviews.data?.data?.review || []; // Safely access the review array
-
+      const reviewArray = updatedReviews.data?.data?.review || [];
       setReviews(reviewArray);
     } catch (error) {
       console.error("Error submitting review:", error);
@@ -119,9 +112,9 @@ const ReviewForm = () => {
   const renderStars = (rating) => {
     return (
       <div className="rating">
-        {[1, 2, 3, 4, 5].map((star) => (
+        {[5, 4, 3, 2, 1].map((star) => (
           <span key={star} className={star <= rating ? "filled-star" : "empty-star"}>
-            ⭐
+            {star <= rating ? "★" : "☆"}
           </span>
         ))}
       </div>
@@ -256,7 +249,8 @@ const ReviewForm = () => {
 
       <Row>
         {reviews.map((review) => (
-          <div key={review._id} className="review-item col-lg-4">
+          <Col lg={4}> 
+          <div key={review._id} className="review-item">
             <div className="review-header">
               <h5>{review.name}</h5>
               <span className="verified-buyer">Verified Buyer</span>
@@ -267,6 +261,7 @@ const ReviewForm = () => {
               <p>{review.review}</p>
             </div>
           </div>
+          </Col>
         ))}
       </Row>
     </div>

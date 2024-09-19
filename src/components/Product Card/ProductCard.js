@@ -23,6 +23,8 @@ const ProductCard = ({ product }) => {
 
   // Calculate discount
   const discount = regularprice - price;
+  const isOnSale = discount > 0;
+  const isSoldOut = !sizes.some(size => size.quantity > 0); // Check if all sizes are sold out
 
   // Function to check if a size is available
   const isSizeAvailable = (sizeName) => {
@@ -31,7 +33,12 @@ const ProductCard = ({ product }) => {
 
   return (
     <Link to={`/products/${_id}`} style={{ textDecoration: "none" }}>
-      <Card className="card, border-none">
+      <Card className="card border-none">
+        
+        {/* Conditional badge rendering */}
+        {isSoldOut && <span className="badge sold-out">Sold Out</span>}
+        {isOnSale && !isSoldOut && <span className="badge sale">Sale</span>}
+        
         <Card.Img variant="top" src={images} alt={name} />
         <Card.Body className="card-body">
           <Card.Title className="product_title">{name}</Card.Title>
