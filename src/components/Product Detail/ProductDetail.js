@@ -4,6 +4,8 @@ import axios from 'axios';
 import './ProductDetail.css';
 import ContactForm from '../ContactForm/ContactForm';
 import ReviewForm from '../ReviewForm/ReviewForm';
+import CartModal from '../Cart Modal/CartModal';
+
 
 const ProductDetail = () => {
   const { id } = useParams();
@@ -12,6 +14,9 @@ const ProductDetail = () => {
   const [error, setError] = useState(null);
   const [selectedSize, setSelectedSize] = useState('S'); // Default selected size
   const [selectedUnavailableSize, setSelectedUnavailableSize] = useState(false);
+  const [cartItems, setCartItems] = useState([]);
+  const [isCartOpen, setIsCartOpen] = useState(false);
+
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -42,6 +47,20 @@ const ProductDetail = () => {
     }
   };
 
+  const handleAddToCart = () => {
+    const newItem = {
+      id: product.id,
+      name: product.name,
+      price: product.price,
+      size: selectedSize,
+      quantity: 1,
+      image: product.images// Ensure product image is set correctly, assuming it's an array
+    };
+    setCartItems([...cartItems, newItem]);
+    setIsCartOpen(true); // Open the cart modal
+  };
+  
+
   const getStockStatus = () => {
     const selectedSizeData = product.sizes.find(s => s.name === selectedSize);
     if (selectedSizeData) {
@@ -57,7 +76,10 @@ const ProductDetail = () => {
 
   return (
     <>
-
+     
+     {isCartOpen && (
+        <CartModal cartItems={cartItems} closeCartModal={() => setIsCartOpen(false)} />
+      )}
     
     <div className="product-detail">
       <div className="product-images">
@@ -99,7 +121,7 @@ const ProductDetail = () => {
           <button className="sold-out-button">Sold Out</button>
         ) : (
           <>
-            <button className="add-to-cart">Add to cart</button>
+            <button className="add-to-cart" onClick={handleAddToCart}>Add to cart</button>
             <button className="buy-now">Buy it now</button>
           </>
         )}

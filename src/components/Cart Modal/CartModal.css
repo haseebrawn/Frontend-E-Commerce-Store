@@ -1,0 +1,83 @@
+.cart-modal {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 400px; /* Adjust width as needed */
+    height: 100%;
+    background: white; /* Background color */
+    box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1);
+    overflow-y: auto; /* Enable scrolling if content exceeds height */
+    padding: 20px; /* Padding around the modal */
+    z-index: 1000; /* Make sure it appears above other elements */
+    transition: transform 0.3s ease; /* Animation for opening */
+    transform: translateX(100%); /* Start off-screen */
+}
+
+.cart-modal.open {
+    transform: translateX(0); /* Slide in */
+}
+
+.close-btn {
+    background: transparent; /* Transparent background */
+    border: none; /* No border */
+    font-size: 24px; /* Font size for the close button */
+    cursor: pointer; /* Pointer cursor on hover */
+    position: absolute; /* Position it at the top right */
+    top: 20px; /* Distance from the top */
+    right: 20px; /* Distance from the right */
+}
+
+h2 {
+    font-size: 24px; /* Heading size */
+    margin-bottom: 20px; /* Margin below the heading */
+}
+
+.cart-items {
+    margin-bottom: 20px; /* Margin below the items */
+}
+
+.cart-item {
+    display: flex; /* Use flexbox for layout */
+    margin-bottom: 15px; /* Margin below each item */
+    border-bottom: 1px solid #f1f1f1; /* Bottom border for separation */
+    padding-bottom: 10px; /* Padding at the bottom of each item */
+}
+
+.cart-item-image {
+    width: 80px; /* Set width for images */
+    height: auto; /* Maintain aspect ratio */
+    margin-right: 15px; /* Space between image and details */
+}
+
+.cart-item-details {
+    flex-grow: 1; /* Allow details to fill remaining space */
+}
+
+.cart-total {
+    display: flex; /* Use flexbox for layout */
+    justify-content: space-between; /* Space between items */
+    align-items: center; /* Center items vertically */
+    font-weight: bold; /* Bold text for totals */
+}
+
+.checkout-btn {
+    background: #007bff; /* Button background color */
+    color: white; /* Text color */
+    padding: 10px 15px; /* Padding for the button */
+    border: none; /* No border */
+    border-radius: 5px; /* Rounded corners */
+    cursor: pointer; /* Pointer cursor on hover */
+}
+
+.quantity-control {
+    display: flex; /* Use flexbox for quantity controls */
+    align-items: center; /* Center items vertically */
+}
+
+.quantity-control button {
+    background: #f1f1f1; /* Button background */
+    border: none; /* No border */
+    padding: 5px 10px; /* Padding for buttons */
+    cursor: pointer; /* Pointer cursor on hover */
+    margin: 0 5px; /* Space between buttons */
+}
