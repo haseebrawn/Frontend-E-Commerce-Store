@@ -87,7 +87,7 @@ const NavBar = () => {
             </Link>
           </div>
           <div className={`navbar_container_right_button ${isHomePage ? "" : "black_text"}`}>
-            <Link to="#">
+            <Link to="/cartModal">
               <GrCart />
             </Link>
           </div>

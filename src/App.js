@@ -24,6 +24,7 @@ import FullSleeveTShirts from "./components/Full Sleeve T-Shirts/FullSleeveTShir
 import Shorts from "./components/Shorts/Shorts";
 import Slider from "./Pages/Slider/Slider";
 import ProductDetail from "./components/Product Detail/ProductDetail";
+import CartModal from "./components/Cart Modal/CartModal";
 
 function App() {
   return (
@@ -59,6 +60,7 @@ function App() {
           <Route path="/full-sleeve-t-shirts" element={<FullSleeveTShirts />} />
           <Route path="/shorts" element={<Shorts />} />
           <Route path="/products/:id" element={<ProductDetail />} />
+          <Route path="/cartModal" element={<CartModal />}/>
         </Routes>
       <Footer />
     </BrowserRouter>

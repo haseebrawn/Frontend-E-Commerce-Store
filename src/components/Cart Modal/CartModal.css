@@ -1,3 +1,4 @@
+/* Cart Modal CSS */
 .cart-modal {
     position: fixed;
     top: 0;
@@ -8,15 +9,17 @@
     box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1);
     overflow-y: auto; /* Enable scrolling if content exceeds height */
     padding: 20px; /* Padding around the modal */
-    z-index: 1000; /* Make sure it appears above other elements */
+    z-index: 1000; /* High z-index to overlay on other content */
     transition: transform 0.3s ease; /* Animation for opening */
     transform: translateX(100%); /* Start off-screen */
 }
 
+/* When cart modal is open */
 .cart-modal.open {
     transform: translateX(0); /* Slide in */
 }
 
+/* Close button */
 .close-btn {
     background: transparent; /* Transparent background */
     border: none; /* No border */
@@ -27,15 +30,18 @@
     right: 20px; /* Distance from the right */
 }
 
+/* Heading style */
 h2 {
     font-size: 24px; /* Heading size */
     margin-bottom: 20px; /* Margin below the heading */
 }
 
+/* Cart items section */
 .cart-items {
     margin-bottom: 20px; /* Margin below the items */
 }
 
+/* Cart item */
 .cart-item {
     display: flex; /* Use flexbox for layout */
     margin-bottom: 15px; /* Margin below each item */
@@ -43,16 +49,19 @@ h2 {
     padding-bottom: 10px; /* Padding at the bottom of each item */
 }
 
+/* Cart item image */
 .cart-item-image {
     width: 80px; /* Set width for images */
     height: auto; /* Maintain aspect ratio */
     margin-right: 15px; /* Space between image and details */
 }
 
+/* Cart item details */
 .cart-item-details {
     flex-grow: 1; /* Allow details to fill remaining space */
 }
 
+/* Cart total section */
 .cart-total {
     display: flex; /* Use flexbox for layout */
     justify-content: space-between; /* Space between items */
@@ -60,6 +69,7 @@ h2 {
     font-weight: bold; /* Bold text for totals */
 }
 
+/* Checkout button */
 .checkout-btn {
     background: #007bff; /* Button background color */
     color: white; /* Text color */
@@ -69,15 +79,34 @@ h2 {
     cursor: pointer; /* Pointer cursor on hover */
 }
 
+/* Quantity control */
 .quantity-control {
     display: flex; /* Use flexbox for quantity controls */
     align-items: center; /* Center items vertically */
 }
 
+/* Quantity control buttons */
 .quantity-control button {
     background: #f1f1f1; /* Button background */
     border: none; /* No border */
     padding: 5px 10px; /* Padding for buttons */
     cursor: pointer; /* Pointer cursor on hover */
     margin: 0 5px; /* Space between buttons */
+}
+
+/* Optional: Background overlay behind modal */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.4); /* Semi-transparent background */
+    z-index: 999; /* Just below the cart modal */
+    display: none; /* Hidden by default */
+}
+
+/* Show overlay when modal is open */
+.modal-overlay.open {
+    display: block;
 }
