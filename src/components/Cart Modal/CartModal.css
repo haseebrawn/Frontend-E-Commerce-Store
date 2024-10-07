@@ -52,7 +52,7 @@ h2 {
 /* Cart item image */
 .cart-item-image {
     width: 80px; /* Set width for images */
-    height: auto; /* Maintain aspect ratio */
+    height: 80px; /* Maintain aspect ratio */
     margin-right: 15px; /* Space between image and details */
 }
 

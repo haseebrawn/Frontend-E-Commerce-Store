@@ -197,8 +197,11 @@ position: relative;
   position: relative;
   cursor: pointer;
   border-radius: 15px;
-  color: #ffffff;
+  color: #1c1d1d; 
   font-size: larger;
+}
+.navbar .navbar_container_right_button .black_text a {
+  color: #ffffff;
 }
 
 

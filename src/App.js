@@ -60,7 +60,7 @@ function App() {
           <Route path="/full-sleeve-t-shirts" element={<FullSleeveTShirts />} />
           <Route path="/shorts" element={<Shorts />} />
           <Route path="/products/:id" element={<ProductDetail />} />
-          <Route path="/cartModal" element={<CartModal />}/>
+          {/* <Route path="/cartModal" element={<CartModal />}/> */}
         </Routes>
       <Footer />
     </BrowserRouter>

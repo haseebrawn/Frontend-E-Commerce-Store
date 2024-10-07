@@ -5,7 +5,7 @@ import { FaSearch } from "react-icons/fa";
 import "./NavBar.css"; // Import your CSS file
 import { Link, useLocation } from "react-router-dom";
 import { RiArrowDropDownLine } from "react-icons/ri";
-
+import CartModal from "../Cart Modal/CartModal"; // Import your CartModal component
 
 const NavBar = () => {
   const location = useLocation();
@@ -16,10 +16,18 @@ const NavBar = () => {
     isHomePage ? "/logo11.avif" : "/logo-black.avif"
   );
 
+  // Cart modal state
+  const [isCartOpen, setIsCartOpen] = useState(false);
+
   // Update the logo source based on the current route
   useEffect(() => {
     setLogoSrc(isHomePage ? "/logo11.avif" : "/logo-black.avif");
   }, [isHomePage]);
+
+  const toggleCartModal = () => {
+    setIsCartOpen((prev) => !prev); // Toggle the cart modal
+    console.log("Cart modal toggled:", !isCartOpen); // Debug log
+  };
 
   return (
     <div className={`navbar ${isHomePage ? "" : "other_page"}`}>
@@ -31,7 +39,8 @@ const NavBar = () => {
           <div className={`navbar_container_left_box_input ${isHomePage ? "" : "black_text"}`}>
             <ul className={`navbar_container_left_box_input_box ${isHomePage ? "" : "black_text"}`}>
               <li className="site_nav_li">
-                <a href="#" className="site_nav_shop">Shop
+                <a href="#" className="site_nav_shop">
+                  Shop
                   <RiArrowDropDownLine className="nav_link_icon" />
                 </a>
                 <ul className="site_nav_dropdown_ul">
@@ -86,13 +95,12 @@ const NavBar = () => {
               <FaSearch />
             </Link>
           </div>
-          <div className={`navbar_container_right_button ${isHomePage ? "" : "black_text"}`}>
-            <Link to="/cartModal">
-              <GrCart />
-            </Link>
+          <div className={`navbar_container_right_button ${isHomePage ? "" : "black_text"}`} onClick={toggleCartModal}>
+            <GrCart />
           </div>
         </div>
       </div>
+      {isCartOpen && <CartModal closeCartModal={toggleCartModal} />} 
     </div>
   );
 };
