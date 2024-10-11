@@ -200,7 +200,10 @@ position: relative;
   color: #1c1d1d; 
   font-size: larger;
 }
-.navbar .navbar_container_right_button .black_text a {
+.navbar .navbar_container_right_button.black_text div{
+  color: #1c1d1d; 
+}
+.navbar .navbar_container_right_button div{
   color: #ffffff;
 }
 

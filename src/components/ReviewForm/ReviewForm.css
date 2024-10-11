@@ -106,6 +106,9 @@ textarea {
   resize: vertical;
   min-height: 100px;
 }
+.reviewpara{
+  text-align: left;
+}
 
 /* Star Rating System */
 .rating {

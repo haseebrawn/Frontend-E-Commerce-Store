@@ -1,17 +1,18 @@
-import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import axios from 'axios';
-import './ProductDetail.css';
-import ContactForm from '../ContactForm/ContactForm';
-import ReviewForm from '../ReviewForm/ReviewForm';
-import CartModal from '../Cart Modal/CartModal';
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import axios from "axios";
+import "./ProductDetail.css";
+import ContactForm from "../ContactForm/ContactForm";
+import ReviewForm from "../ReviewForm/ReviewForm";
+import CartModal from "../Cart Modal/CartModal";
+import { Link } from "react-router-dom";
 
 const ProductDetail = () => {
   const { id } = useParams();
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [selectedSize, setSelectedSize] = useState('S'); // Default selected size
+  const [selectedSize, setSelectedSize] = useState("S"); // Default selected size
   const [selectedUnavailableSize, setSelectedUnavailableSize] = useState(false);
   const [cartItems, setCartItems] = useState([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
@@ -19,11 +20,14 @@ const ProductDetail = () => {
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        const response = await axios.get(`${process.env.REACT_APP_PORT}/api/product/${id}`);
+        const response = await axios.get(
+          `${process.env.REACT_APP_PORT}/api/product/${id}`
+        );
         setProduct(response.data.data.product);
+        console.log("Product_id", response.data.data.product);
         setLoading(false);
       } catch (err) {
-        setError(err.response?.data?.message || 'Something went wrong');
+        setError(err.response?.data?.message || "Something went wrong");
         setLoading(false);
       }
     };
@@ -33,7 +37,7 @@ const ProductDetail = () => {
   if (loading) return <p>Loading...</p>;
   if (error) return <p>{error}</p>;
 
-  const availableSizes = ['S', 'M', 'L', 'XL'];
+  const availableSizes = ["S", "M", "L", "XL"];
 
   const handleSizeClick = (sizeData, sizeName) => {
     setSelectedSize(sizeName); // Set the selected size
@@ -72,14 +76,17 @@ const ProductDetail = () => {
       }
 
       // Add new item to the cart
-      return [...prevItems, {
-        id: product.id,
-        name: product.name,
-        price: product.price,
-        size: selectedSize,
-        quantity: 1, // Initialize quantity to 1
-        image: product.images // Ensure product image is set correctly, assuming it's an array
-      }];
+      return [
+        ...prevItems,
+        {
+          id: product.id,
+          name: product.name,
+          price: product.price,
+          size: selectedSize,
+          quantity: 1, // Initialize quantity to 1
+          image: product.images, // Ensure product image is set correctly, assuming it's an array
+        },
+      ];
     });
 
     setIsCartOpen(true); // Open the cart modal
@@ -90,8 +97,15 @@ const ProductDetail = () => {
     if (selectedSizeData) {
       if (selectedSizeData.quantity > 5) {
         return <span className="in-stock">● In stock - ready to ship</span>;
-      } else if (selectedSizeData.quantity > 0 && selectedSizeData.quantity <= 5) {
-        return <span className="low-stock">● Low stock - {selectedSizeData.quantity} items left</span>;
+      } else if (
+        selectedSizeData.quantity > 0 &&
+        selectedSizeData.quantity <= 5
+      ) {
+        return (
+          <span className="low-stock">
+            ● Low stock - {selectedSizeData.quantity} items left
+          </span>
+        );
       } else {
         return <span className="out-of-stock">● Out of stock</span>;
       }
@@ -100,7 +114,12 @@ const ProductDetail = () => {
 
   return (
     <>
-      {isCartOpen && <CartModal cartItems={cartItems} closeCartModal={() => setIsCartOpen(false)} />}
+      {isCartOpen && (
+        <CartModal
+          cartItems={cartItems}
+          closeCartModal={() => setIsCartOpen(false)}
+        />
+      )}
 
       <div className="product-detail">
         <div className="product-images">
@@ -116,7 +135,9 @@ const ProductDetail = () => {
             <p className="original-price">Rs. {product.regularprice}</p>
             <p className="discounted-price">Rs. {product.price}</p>
           </div>
-          <p className="tax-info">Tax included. Shipping calculated at checkout.</p>
+          <p className="tax-info">
+            Tax included. Shipping calculated at checkout.
+          </p>
           <hr />
           <div className="product-sizes">
             <label className="label-detail">Size</label>
@@ -126,8 +147,10 @@ const ProductDetail = () => {
                 return (
                   <button
                     key={index}
-                    className={`size-button ${size === selectedSize ? 'selected' : ''} ${
-                      !sizeData || sizeData.quantity === 0 ? 'unavailable' : ''
+                    className={`size-button ${
+                      size === selectedSize ? "selected" : ""
+                    } ${
+                      !sizeData || sizeData.quantity === 0 ? "unavailable" : ""
                     }`}
                     onClick={() => handleSizeClick(sizeData, size)}
                   >
@@ -137,7 +160,9 @@ const ProductDetail = () => {
               })}
             </div>
             <div className="customer-guarantee">
-              <p className="customer-guarantee">Customer satisfaction guarantee</p>
+              <p className="customer-guarantee">
+                Customer satisfaction guarantee
+              </p>
             </div>
             <div className="stock-status">{getStockStatus()}</div>
           </div>
@@ -152,7 +177,12 @@ const ProductDetail = () => {
               >
                 Add to Cart
               </button>
-              <button className="buy-now">Buy it now</button>
+              <Link
+                to={`/checkout/${product._id}`}
+                state={{ product: product, selectedSize: selectedSize }}
+              >
+                <button className="buy-now">Buy it now</button>
+              </Link>
             </>
           )}
 

@@ -96,7 +96,9 @@ const NavBar = () => {
             </Link>
           </div>
           <div className={`navbar_container_right_button ${isHomePage ? "" : "black_text"}`} onClick={toggleCartModal}>
-            <GrCart />
+            <div>
+              <GrCart />
+            </div>
           </div>
         </div>
       </div>

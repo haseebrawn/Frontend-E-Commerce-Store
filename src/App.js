@@ -25,6 +25,9 @@ import Shorts from "./components/Shorts/Shorts";
 import Slider from "./Pages/Slider/Slider";
 import ProductDetail from "./components/Product Detail/ProductDetail";
 import CartModal from "./components/Cart Modal/CartModal";
+import CheckoutPage from "./components/Checkout Page/CheckoutPage";
+
+
 
 function App() {
   return (
@@ -60,6 +63,12 @@ function App() {
           <Route path="/full-sleeve-t-shirts" element={<FullSleeveTShirts />} />
           <Route path="/shorts" element={<Shorts />} />
           <Route path="/products/:id" element={<ProductDetail />} />
+          <Route
+          path="/checkout/:id"  element={<CheckoutPage />}
+          // render={(props) => (
+          //   <CheckoutPage product={props.location.state.product} />
+          // )}
+        />
           {/* <Route path="/cartModal" element={<CartModal />}/> */}
         </Routes>
       <Footer />
