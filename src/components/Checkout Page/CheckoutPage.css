@@ -1,0 +1,51 @@
+.checkout-row{
+    padding: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.form-bottom{
+    border-bottom: none;
+}
+.checkout-col{
+    text-align: left;
+    font-size: 17px;
+    font-family: fangsong;
+}
+.checkout-image{
+    border-radius: 8px;
+}
+.apply-btn{
+    height: 44px;
+    width: 65px;
+    border: 1px solid #d1cdcd;
+}
+.checkout-item{
+    position: sticky;
+}
+.text-right{
+    text-align: right;
+}
+.text-left{
+    text-align: left;
+}
+.total-bill{
+    margin-top: 18px;
+}
+.strong-total {
+    padding-left: 10px;
+}
+.input-col{
+    padding: 0;
+}
+.price-breakdown{
+    font-family: emoji;
+}
+strong{
+    font-size: 20px;
+}
+.info-icon{
+    border-radius: 37px;
+    border: 2px solid rgb(145 143 143);
+    font-size: 9px;
+}
