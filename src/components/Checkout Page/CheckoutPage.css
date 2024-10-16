@@ -49,3 +49,49 @@ strong{
     border: 2px solid rgb(145 143 143);
     font-size: 9px;
 }
+.lebel-col{
+    text-align: left;
+    margin-bottom: 0;
+}
+.login-col{
+    margin-bottom: 0;
+    text-align: right;
+}
+.login-link{
+    color: black;
+}
+.checkbox-input{
+    width: 0;
+}
+.form-checkbox{
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    margin-top: 8px;
+}
+.checkbox-input{
+    width: 30px;
+    height: 20px;
+    border-radius: dotted;
+}
+.offers-label{
+    font-size: 16px;
+    font-weight: 100;
+    margin-bottom: 0;
+    margin-left: 8px;
+}
+.delivery-label{
+    font-size: 22px;
+}
+.save-info-label{
+    font-size: 16px;
+    font-weight: 100;
+    margin-bottom: 0;
+    margin-left: 8px;
+}
+.form-input:focus, .form-control:focus {
+    border: 2px solid;
+    border-color: black; /* Change the border color to black */
+    box-shadow: none; /* Remove the default Bootstrap focus shadow if any */
+    outline: none; /* Remove the default outline */
+  }

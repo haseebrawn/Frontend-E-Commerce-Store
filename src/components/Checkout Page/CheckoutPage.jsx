@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Row, Col, Container, Form, Button } from 'react-bootstrap';
-import { useLocation } from 'react-router-dom';
+import { useLocation, Link } from 'react-router-dom';
 import './CheckoutPage.css';
 
 const CheckoutPage = () => {
@@ -19,12 +19,71 @@ const CheckoutPage = () => {
   return (
     <Container className="checkout-page">
       <Row>
-        {/* Product Information Section */}
-        <Col md={6} lg={6}>
+      <Col md={6} lg={6}>
           <form className='form-bottom'> 
-            <label>Contact</label>
+          <Row className='mb-0'>
+            <Col className='lebel-col'> <label>Contact</label></Col>
+            <Col className='login-col'>
+              {/* Link for 'Log in' */}
+             <Link to="/login" className="login-link">
+              Log in
+            </Link>
+            </Col>
+          </Row>
             <input type='email' placeholder='Email' required></input>
+
+            {/* Checkbox for news and offers */}
+            <div className="form-checkbox">
+              <input type="checkbox" id="offers" className='checkbox-input'/>
+              <label htmlFor="offers" className='offers-label'>Email me with news and offers</label>
+            </div>
           </form>
+          {/* Delivery Form */}
+          <form className='form-bottom'>
+            <label className='delivery-label'>Delivery</label>
+            <Form.Group controlId="country">
+              <Form.Control as="select" defaultValue="Pakistan">
+                <option>Pakistan</option>
+              </Form.Control>
+            </Form.Group>
+
+            <Row className='mb-0'>
+              <Col md={6} className='mb-0'>
+                <Form.Group controlId="firstName">
+                  <Form.Control type="text" placeholder="First name" required />
+                </Form.Group>
+              </Col>
+              <Col md={6} className='mb-0'>
+                <Form.Group controlId="lastName">
+                  <Form.Control type="text" placeholder="Last name" required />
+                </Form.Group>
+              </Col>
+            </Row>
+            <Form.Group controlId="address">
+              <Form.Control type="text" placeholder="Complete address required" required />
+            </Form.Group>
+
+            <Row className='mb-0'>
+              <Col md={6} className='mb-0'>
+                <Form.Group controlId="city">
+                  <Form.Control type="text" placeholder="City" required />
+                </Form.Group>
+              </Col>
+              <Col md={6} className='mb-0'>
+                <Form.Group controlId="postalCode">
+                  <Form.Control type="text" placeholder="Postal code (optional)" />
+                </Form.Group>
+              </Col>
+            </Row>
+            <Form.Group controlId="mobile">
+              <Form.Control type="text" placeholder="Mobile no." required />
+            </Form.Group>
+            <div className="form-checkbox">
+              <input type="checkbox" id="saveInfo" className='checkbox-input' />
+              <label htmlFor="saveInfo" className='save-info-label'>Save this information for next time</label>
+            </div>
+          </form>
+          
         </Col>
 
         {/* Checkout Summary Section */}
