@@ -1,8 +1,26 @@
+.checkout-page{
+  max-width: 1200px !important;
+}
 .checkout-row{
     padding: 30px;
     display: flex;
     justify-content: center;
     align-items: center;
+}
+.left-col{
+    border-right: 1px solid #ccc8c8;
+    padding: 30px !important;
+    overflow-y: auto;
+}
+.mb-40{
+  margin-bottom: 40px;
+}
+.checkout-logo{
+  text-align: left;
+}
+.checkout-icon{
+    text-align: end;
+    font-size: 26px;
 }
 .form-bottom{
     border-bottom: none;
@@ -21,7 +39,9 @@
     border: 1px solid #d1cdcd;
 }
 .checkout-item{
-    position: sticky;
+  position: sticky;
+  top: 0;
+  height: 100vh;
 }
 .text-right{
     text-align: right;
@@ -95,3 +115,168 @@ strong{
     box-shadow: none; /* Remove the default Bootstrap focus shadow if any */
     outline: none; /* Remove the default outline */
   }
+  .form-control{
+    padding: 14px !important;
+  } 
+  .form-bottom {
+    margin-bottom: 20px;
+  }
+  
+  .label-col {
+    font-weight: bold;
+  }
+  
+  .login-link {
+    text-align: right;
+    color: #000;
+  }
+  
+  .form-checkbox {
+    margin-top: 10px;
+  }
+  
+  .checkbox-input {
+    margin-right: 10px;
+  }
+  
+  .section {
+    /* border: 1px solid #ccc; */
+    /* padding: 15px; */
+    margin-bottom: 15px;
+  }
+  
+  .section-title {
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  
+  .section-box {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background-color: #f8f9fa;
+    border: 1px solid #000;
+    border-radius: 5px;
+  }
+  
+  .price {
+    font-weight: bold;
+  }
+  
+  .text-muted {
+    font-size: 12px;
+    color: #6c757d;
+    margin-bottom: 10px;
+    text-align: left;
+  }
+ 
+  
+  .complete-order-section {
+    text-align: center;
+  }
+  /* .checkbox-billling{
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    border: 1px solid #000;
+  } */
+  .billing-section {
+    border-radius: 5px;
+  }
+  
+  .section-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  
+  .billing-options {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .checkbox-billing {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    border: 2px solid #ddd;
+    border-radius: 5px;
+    /* margin-bottom: 10px; */
+    cursor: pointer;
+    transition: border 0.2s ease-in-out;
+  }
+  
+  .checkbox-billing input {
+    margin-right: 10px; /* Show the radio buttons */
+    
+  }
+  .shipping-input{
+    width: 30px;
+    height: 20px;
+    border-radius: dotted;
+    border-top-left-radius: 10px !important;
+    border-top-right-radius: 10px !important;
+  }
+  .diffrent-billing-input{
+    width: 30px;
+    height: 20px;
+    border-radius: dotted;
+  }
+  
+  .checkbox-billing label {
+    font-size: 16px;
+    color: #333;
+    cursor: pointer;
+    width: 100%; /* Full width clickable label */
+  }
+  
+  .checkbox-billing.active {
+    border-color: black;
+    background-color: #f9f9f9;
+  }
+  
+  .checkbox-billing:not(.active) {
+    border-color: #ddd;
+  }
+  
+  .billing-form {
+    padding: 10px;
+    border: 2px solid #ddd;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+  }
+  
+  .form-group {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+  
+  .form-group input,
+  .form-group select {
+    padding: 14px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 14px;
+  }
+  
+  .form-group input::placeholder {
+    color: #999;
+  }
+  
+  .form-group select {
+    width: 100%;
+  }
+
+  .complete-order-btn {
+    background-color: #000;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    font-size: 16px;
+    width: 100% !important;
+    cursor: pointer;
+  }
+  

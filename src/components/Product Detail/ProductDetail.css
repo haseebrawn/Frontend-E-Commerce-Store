@@ -101,6 +101,10 @@
     background-color: #000;
     color: #fff;
     font-size: 15px;
+    text-decoration: none;
+  }
+  .buy-now-link{
+    text-decoration: none;
   }
   .sizes-container {
     display: flex;

@@ -178,6 +178,7 @@ const ProductDetail = () => {
                 Add to Cart
               </button>
               <Link
+              className="buy-now-link"
                 to={`/checkout/${product._id}`}
                 state={{ product: product, selectedSize: selectedSize }}
               >

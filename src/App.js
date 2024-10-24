@@ -3,7 +3,7 @@ import "./App.css";
 import NavBar from "./components/Navbar/NavBar";
 import Login from "./Pages/Login/Login";
 import SignUp from "./Pages/SignUp/SignUp";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import HeroSection from "./Pages/HeroSection/HeroSection";
 import SearchBar from "./components/SearchBar/SearchBar";
 import Footer from "./components/Footer/Footer";
@@ -24,56 +24,69 @@ import FullSleeveTShirts from "./components/Full Sleeve T-Shirts/FullSleeveTShir
 import Shorts from "./components/Shorts/Shorts";
 import Slider from "./Pages/Slider/Slider";
 import ProductDetail from "./components/Product Detail/ProductDetail";
-import CartModal from "./components/Cart Modal/CartModal";
 import CheckoutPage from "./components/Checkout Page/CheckoutPage";
-
-
+import CartModal from "./components/Cart Modal/CartModal";
 
 function App() {
+  const location = useLocation();  // Get the current location
+
+  const isCheckoutPage = location.pathname.includes("/checkout");  // Check if the path is checkout
+
   return (
-    <BrowserRouter>
+    <>
+      {/* Conditionally apply the layout */}
+      {!isCheckoutPage && (
         <div className="app_main_div">
-        <NavBar />
-        <Routes>
+          <NavBar />
+          <Routes>
             <Route path="/" element={<HeroSection />} />
-        </Routes>
-      </div>
+          </Routes>
+        </div>
+      )}
+
+      {/* Routes for the rest of the app */}
       <Routes>
-          <Route path="/" element={
+        <Route
+          path="/"
+          element={
             <>
               <Category />
               <FullSleeveTShirts />
               <Slider />
               <ShopNow />
             </>
-          }/>
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<SignUp />} />
-          <Route path="/searchbar" element={<SearchBar />} />
-          <Route path="/about-us" element={<AboutUs />} />
-          <Route path="/contact-us" element={<ContactUs />} />
-          <Route path="/refund-policy" element={<RefundPolicy />} />
-          <Route path="/shipping-policy" element={<ShippingPolicy />} />
-          <Route path="/terms-of-service" element={<Services />} />
-          <Route path="/privacy-policy" element={<PrivacyPolicy />} />
-          <Route path="/men-tops" element={<MenTops />} />
-          <Route path="/men-bottoms" element={<MenBottoms />} />
-          <Route path="/sale" element={<Sale />} />
-          <Route path="/bundle-deals" element={<BundleDeals />} />
-          <Route path="/full-sleeve-t-shirts" element={<FullSleeveTShirts />} />
-          <Route path="/shorts" element={<Shorts />} />
-          <Route path="/products/:id" element={<ProductDetail />} />
-          <Route
-          path="/checkout/:id"  element={<CheckoutPage />}
-          // render={(props) => (
-          //   <CheckoutPage product={props.location.state.product} />
-          // )}
+          }
         />
-          {/* <Route path="/cartModal" element={<CartModal />}/> */}
-        </Routes>
-      <Footer />
-    </BrowserRouter>
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<SignUp />} />
+        <Route path="/searchbar" element={<SearchBar />} />
+        <Route path="/about-us" element={<AboutUs />} />
+        <Route path="/contact-us" element={<ContactUs />} />
+        <Route path="/refund-policy" element={<RefundPolicy />} />
+        <Route path="/shipping-policy" element={<ShippingPolicy />} />
+        <Route path="/terms-of-service" element={<Services />} />
+        <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+        <Route path="/men-tops" element={<MenTops />} />
+        <Route path="/men-bottoms" element={<MenBottoms />} />
+        <Route path="/sale" element={<Sale />} />
+        <Route path="/bundle-deals" element={<BundleDeals />} />
+        <Route path="/full-sleeve-t-shirts" element={<FullSleeveTShirts />} />
+        <Route path="/shorts" element={<Shorts />} />
+        <Route path="/products/:id" element={<ProductDetail />} />
+        <Route path="/checkout/:id" element={<CheckoutPage />} />
+        <Route path="/cart" element={<CartModal />}/>
+      </Routes>
+
+      {/* Conditionally render Footer */}
+      {!isCheckoutPage && <Footer />}
+    </>
   );
 }
 
-export default App;
+export default function MainApp() {
+  return (
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+  );
+}
