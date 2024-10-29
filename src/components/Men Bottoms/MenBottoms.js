@@ -1,46 +1,29 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import { Row, Col } from "react-bootstrap";
 import  "./MenBottoms.css";
 import ProductCard from "../Product Card/ProductCard";
+import axios from "axios";
 
 const MenBottoms = () => {
-  const products = [
-    {
-      image: "https://radstore.pk/cdn/shop/files/1C1A4508_360x.jpg?v=1714476918",
-      name: "Premium Micro Stretch Pants  Gray Stripes",
-    //   star: 4.5,
-      reviewCount: 20,
-      price: "1,500",
-      sizes: ["S", "M", "L", "XL"],
-    },
-    {
-      image: "https://radstore.pk/cdn/shop/files/1C1A0572_360x.jpg?v=1687782305",
-      name: "Black Premium Micro Stretch Tech Pants",
-    //   star: 4,
-      reviewCount: 15,
-      price: "1,000",
-      sizes: ["S","M", "L", "XL"],
-    },
-    {
-      image: "https://radstore.pk/cdn/shop/products/1C1A9801_360x.jpg?v=1681455894",
-      name: "Black Quick Dry Bottoms with Two White Stripes",
-    //   star: 4,
-      reviewCount: 15,
-      price: "800",
-      sizes: ["S", "M", "L", "XL"],
-    },
-    {
-      image: "https://radstore.pk/cdn/shop/products/1C1A9542_360x.jpg?v=1681456338",
-      name: "Navy Premium Micro Stretch Cargo Pants",
-    //   star: 4,
-      reviewCount: 15,
-      price: "600",
-      sizes: ["S","M", "L", "XL"],
-    },
-   
-  ];
+  const [products, setProducts] = useState([]);
 
-   const repeatedImages = Array.from({ length: 25 }, () => products).flat();
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const response = await axios.get(`${process.env.REACT_APP_PORT}/api/product/category/men-bottoms`);
+        const updatedProducts = response.data.data.product.map(product => ({
+          ...product,
+          images: `${process.env.REACT_APP_PORT}${product.images}` 
+        }));
+        setProducts(updatedProducts);
+        console.log(updatedProducts);
+      } catch (err) {
+        console.error("Failed to fetch products by category", err);
+      }
+    };
+
+    fetchProducts();
+  }, []);
 
   return (
     <div className="collection">
@@ -49,10 +32,9 @@ const MenBottoms = () => {
       </div>
       <div className="collection_box">
         <Row>
-          {repeatedImages.map((product, index) => (
+          {products.map((product, index) => (
             <Col key={index} xs={6} sm={3} md={3} lg={3}>
               <ProductCard product={product} />
-              {/* <ProductCard {...product} /> */}
             </Col>
           ))}
         </Row>

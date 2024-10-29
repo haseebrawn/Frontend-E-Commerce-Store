@@ -51,31 +51,26 @@ const ProductDetail = () => {
   const handleAddToCart = () => {
     const sizeData = product.sizes.find((s) => s.name === selectedSize);
     if (!sizeData || sizeData.quantity === 0) {
-      // Prevent adding if size is unavailable
       return;
     }
 
-    // Check if the item already exists in the cart
     setCartItems((prevItems) => {
       const existingItemIndex = prevItems.findIndex(
         (item) => item.id === product.id && item.size === selectedSize
       );
 
       if (existingItemIndex >= 0) {
-        // Check if we can increase quantity based on available stock
         const newQuantity = prevItems[existingItemIndex].quantity + 1;
 
         if (newQuantity <= sizeData.quantity) {
           const updatedCart = [...prevItems];
-          updatedCart[existingItemIndex].quantity = newQuantity; // Update quantity
+          updatedCart[existingItemIndex].quantity = newQuantity; 
           return updatedCart;
         } else {
-          // If we can't add more than the available quantity, do nothing
-          return prevItems; // Do not modify cart if exceeding available stock
+          return prevItems; 
         }
       }
 
-      // Add new item to the cart
       return [
         ...prevItems,
         {
@@ -83,13 +78,13 @@ const ProductDetail = () => {
           name: product.name,
           price: product.price,
           size: selectedSize,
-          quantity: 1, // Initialize quantity to 1
-          image: product.images, // Ensure product image is set correctly, assuming it's an array
+          quantity: 1,
+          image: product.images, 
         },
       ];
     });
 
-    setIsCartOpen(true); // Open the cart modal
+    setIsCartOpen(true); 
   };
 
   const getStockStatus = () => {

@@ -77,6 +77,9 @@ strong{
     margin-bottom: 0;
     text-align: right;
 }
+.form-group{
+  margin-bottom: 2px;
+}
 .login-link{
     color: black;
 }
@@ -111,12 +114,13 @@ strong{
 }
 .form-input:focus, .form-control:focus {
     border: 2px solid;
-    border-color: black; /* Change the border color to black */
-    box-shadow: none; /* Remove the default Bootstrap focus shadow if any */
-    outline: none; /* Remove the default outline */
+    border-color: black; 
+    box-shadow: none; 
+    outline: none; 
   }
   .form-control{
     padding: 14px !important;
+    margin-bottom: 15px;
   } 
   .form-bottom {
     margin-bottom: 20px;
@@ -140,8 +144,6 @@ strong{
   }
   
   .section {
-    /* border: 1px solid #ccc; */
-    /* padding: 15px; */
     margin-bottom: 15px;
   }
   
@@ -175,12 +177,6 @@ strong{
   .complete-order-section {
     text-align: center;
   }
-  /* .checkbox-billling{
-    display: flex;
-    justify-content: left;
-    align-items: center;
-    border: 1px solid #000;
-  } */
   .billing-section {
     border-radius: 5px;
   }
@@ -203,13 +199,12 @@ strong{
     padding: 10px;
     border: 2px solid #ddd;
     border-radius: 5px;
-    /* margin-bottom: 10px; */
     cursor: pointer;
     transition: border 0.2s ease-in-out;
   }
   
   .checkbox-billing input {
-    margin-right: 10px; /* Show the radio buttons */
+    margin-right: 10px;
     
   }
   .shipping-input{
@@ -229,7 +224,7 @@ strong{
     font-size: 16px;
     color: #333;
     cursor: pointer;
-    width: 100%; /* Full width clickable label */
+    width: 100%; 
   }
   
   .checkbox-billing.active {

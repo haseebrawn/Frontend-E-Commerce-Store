@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Row, Col, Container, Form, Button } from "react-bootstrap";
 import { useLocation, Link } from "react-router-dom";
 import { LiaShoppingBagSolid } from "react-icons/lia";
@@ -9,18 +9,22 @@ const CheckoutPage = () => {
   const { product, selectedSize } = location.state || {}; // Access passed state with fallback
 
   const [discountCode, setDiscountCode] = useState("");
-  const [subtotal] = useState(product ? product.price : 0); // Assuming price is for a single item
-  const shipping = 200; // Fixed shipping cost
-  const total = subtotal + shipping; // Calculate total
   const [isDifferentAddress, setIsDifferentAddress] = useState(false);
+  const [shipping, setShipping] = useState(200);
+  const [subtotal] = useState(product ? product.price : 0); // Assuming price is for a single item
+  const total = subtotal + shipping;
+
+  useEffect(() => {
+    if (subtotal >= 2000) {
+      setShipping(0); // Free shipping for orders >= 2000
+    } else {
+      setShipping(200); // Standard shipping cost for orders < 2000
+    }
+  }, [subtotal]);
 
   const handleAddressChange = (e) => {
-    if (e.target.id === "differentBilling") {
-      setIsDifferentAddress(true);
-    } else {
-      setIsDifferentAddress(false);
-    }
-  };  
+    setIsDifferentAddress(e.target.id === "differentBilling");
+  };
 
   if (!product) {
     return <p>No product data found. Please go back and select a product.</p>;
@@ -30,18 +34,19 @@ const CheckoutPage = () => {
     <Container className="checkout-page">
       <Row>
         <Col md={6} lg={6} className="left-col">
-        <Row className="mb-40">
-          <Col lg={10} className="checkout-logo">
-          <a href="/">
-          <img src="/logo-black.avif"></img>
-          </a>
-          </Col>
-          <Col lg={2} className="checkout-icon">
-          <a href="" className="text-black">
-          <LiaShoppingBagSolid />
-          </a>
-          </Col>
-        </Row>
+          <Row className="mb-40">
+            <Col lg={10} className="checkout-logo">
+              <a href="/">
+                <img src="/logo-black.avif" alt="Logo" />
+              </a>
+            </Col>
+            <Col lg={2} className="checkout-icon">
+              <a href="/" className="text-black">
+                <LiaShoppingBagSolid />
+              </a>
+            </Col>
+          </Row>
+          
           {/* Contact Form */}
           <form className="form-bottom">
             <Row className="mb-0">
@@ -72,12 +77,12 @@ const CheckoutPage = () => {
               </Form.Control>
             </Form.Group>
             <Row className="mb-0">
-              <Col md={6}>
+              <Col md={6} className="mb-0">
                 <Form.Group controlId="firstName">
                   <Form.Control type="text" placeholder="First name" required />
                 </Form.Group>
               </Col>
-              <Col md={6}>
+              <Col md={6} className="mb-0">
                 <Form.Group controlId="lastName">
                   <Form.Control type="text" placeholder="Last name" required />
                 </Form.Group>
@@ -91,12 +96,12 @@ const CheckoutPage = () => {
               />
             </Form.Group>
             <Row className="mb-0">
-              <Col md={6}>
+              <Col md={6} className="mb-0">
                 <Form.Group controlId="city">
                   <Form.Control type="text" placeholder="City" required />
                 </Form.Group>
               </Col>
-              <Col md={6}>
+              <Col md={6} className="mb-0">
                 <Form.Group controlId="postalCode">
                   <Form.Control
                     type="text"
@@ -120,8 +125,10 @@ const CheckoutPage = () => {
           <div className="section shipping-section">
             <label className="section-title">Shipping method</label>
             <div className="section-box">
-              <span>Delivery Charges For Orders Less Than 2000</span>
-              <span className="price">Rs 200.00</span>
+              <span>
+                Delivery Charges {subtotal >= 2000 ? "Free" : "For Orders Less Than 2000"}
+              </span>
+              <span className="price">Rs {shipping}</span>
             </div>
           </div>
 
@@ -135,75 +142,84 @@ const CheckoutPage = () => {
               <span>Cash on Delivery (COD)</span>
             </div>
           </div>
+
+          {/* Billing Section */}
           <div className="section billing-section">
-      <label className="section-title">Billing address</label>
-      <div className="billing-options">
-        {/* First Option - Same as Shipping */}
-        <div className={`checkbox-billing ${!isDifferentAddress ? "active" : ""}`}>
-          <input
-            className="shipping-input"
-            type="radio"
-            id="sameAsShipping"
-            name="billingAddress"
-            defaultChecked
-            onChange={handleAddressChange}
-          />
-          <label htmlFor="sameAsShipping">Same as shipping address</label>
-        </div>
+            <label className="section-title">Billing address</label>
+            <div className="billing-options">
+              <div className={`checkbox-billing ${!isDifferentAddress ? "active" : ""}`}>
+                <input
+                  className="shipping-input"
+                  type="radio"
+                  id="sameAsShipping"
+                  name="billingAddress"
+                  defaultChecked
+                  onChange={handleAddressChange}
+                />
+                <label htmlFor="sameAsShipping">Same as shipping address</label>
+              </div>
 
-        {/* Second Option - Use a Different Address */}
-        <div className={`checkbox-billing ${isDifferentAddress ? "active" : ""}`}>
-          <input
-          className="diffrent-billing-input"
-            type="radio"
-            id="differentBilling"
-            name="billingAddress"
-            onChange={handleAddressChange}
-          />
-          <label htmlFor="differentBilling">Use a different billing address</label>
-        </div>
-      </div>
+              <div className={`checkbox-billing ${isDifferentAddress ? "active" : ""}`}>
+                <input
+                  className="diffrent-billing-input"
+                  type="radio"
+                  id="differentBilling"
+                  name="billingAddress"
+                  onChange={handleAddressChange}
+                />
+                <label htmlFor="differentBilling">Use a different billing address</label>
+              </div>
+            </div>
 
-      {/* Show form if different billing address is selected */}
-      {isDifferentAddress && (
-        <div className="billing-form">
-          <div className="form-group">
-            <select id="country" defaultValue="Pakistan">
-              <option value="Pakistan">Pakistan</option>
-              <option value="India">India</option>
-              <option value="USA">USA</option>
-              <option value="UK">UK</option>
-              {/* Add more countries as needed */}
-            </select>
+            {isDifferentAddress && (
+              <div className="billing-form">
+                <Form.Group controlId="billingCountry">
+                  <Form.Control as="select" defaultValue="Pakistan">
+                    <option value="Pakistan">Pakistan</option>
+                    <option value="India">India</option>
+                    <option value="USA">USA</option>
+                    <option value="UK">UK</option>
+                  </Form.Control>
+                </Form.Group>
+                <Form.Group>
+                <Row>
+                  <Col>
+                  <Form.Control type="text" placeholder="First name" required />
+                  </Col>
+                  <Col>
+                  <Form.Control type="text" placeholder="Last name" required />
+                  </Col>
+                </Row>
+                </Form.Group>
+                <Form.Group>
+                  <Form.Control
+                    type="text"
+                    placeholder="Complete address required"
+                    required
+                  />
+                </Form.Group>
+                <Row>
+                  <Col>
+                    <Form.Control type="text" placeholder="City" required />
+                  </Col>
+                  <Col>
+                    <Form.Control type="text" placeholder="Postal code (optional)" />
+                  </Col>
+                </Row>
+                <Form.Group>
+                  <Form.Control type="text" placeholder="Phone (optional)" />
+                </Form.Group>
+              </div>
+            )}
           </div>
 
-          <div className="form-group">
-            <input type="text" placeholder="First name" required />
-            <input type="text" placeholder="Last name" required />
-          </div>
-
-          <div className="form-group">
-            <input type="text" placeholder="Complete address required" required />
-          </div>
-
-          <div className="form-group">
-            <input type="text" placeholder="City" required />
-            <input type="text" placeholder="Postal code (optional)" />
-          </div>
-
-          <div className="form-group">
-            <input type="text" placeholder="Phone (optional)" />
-          </div>
-        </div>
-      )}
-    </div>
           {/* Complete Order Button */}
           <Row className="section complete-order-section">
-          <Col lg={12}>
-            <button type="submit" className="complete-order-btn">
-              Complete order
-            </button>
-          </Col>
+            <Col lg={12}>
+              <Button type="submit" className="complete-order-btn">
+                Complete order
+              </Button>
+            </Col>
           </Row>
         </Col>
 
@@ -227,8 +243,8 @@ const CheckoutPage = () => {
             <Col lg={2} className="checkout-price">
               <span>Rs. {product.price}</span>
             </Col>
+
             {/* Discount Code Section */}
-            {/* <Form className="mt-3"> */}
             <Row className="mt-4">
               <Col md={10} lg={10} className="input-col">
                 <Form.Control
@@ -242,42 +258,20 @@ const CheckoutPage = () => {
                 <button className="apply-btn">Apply</button>
               </Col>
             </Row>
-            {/* </Form> */}
 
             {/* Price Breakdown Section */}
             <div className="price-breakdown mt-4">
               <Row>
-                <Col lg={6} className="text-left">
-                  Subtotal
-                </Col>
-                <Col lg={6} className="text-right">
-                  Rs. {subtotal}
-                </Col>
+                <Col className="text-start">Subtotal</Col>
+                <Col className="text-end">Rs. {subtotal}</Col>
               </Row>
               <Row>
-                <Col lg={6} className="text-left">
-                  Shipping{" "}
-                  <span className="info-icon" title="Shipping cost may vary.">
-                    ❔
-                  </span>
-                </Col>
-                <Col lg={6} className="text-right">
-                  Rs. {shipping}
-                </Col>
-              </Row>
-              <Row className="total-bill">
-                <Col lg={6} className="text-left">
-                  <strong>Total</strong>
-                </Col>
-                <Col lg={6} className="text-right">
-                  PKR
-                  <strong className="strong-total">Rs. {total}</strong>
-                </Col>
+                <Col className="text-start">Shipping</Col>
+                <Col className="text-end">Rs. {shipping}</Col>
               </Row>
               <Row>
-                <Col lg={6} className="text-left">
-                  Including Rs 0.00 in taxes
-                </Col>
+                <Col className="text-start">Total</Col>
+                <Col className="text-end">Rs. {total}</Col>
               </Row>
             </div>
           </Row>

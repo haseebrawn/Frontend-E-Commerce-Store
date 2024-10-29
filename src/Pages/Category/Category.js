@@ -42,10 +42,10 @@ const Category = () => {
                 <div className="paragraph">
                   <p>Check out our comfy t-shirts, raglans, trousers and more.</p>
                 </div>
-                <a href="/men-tops">
+                <a href="/collections/men-tops">
                   <Button class_name="btn-button" btn_label="Men Tops"/>
                 </a>
-                <a href="/men-bottoms">
+                <a href="/collection/men-bottoms">
                 <Button class_name="btn-button" btn_label="Men Bottoms"/>
                 </a>
               </div>

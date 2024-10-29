@@ -66,12 +66,12 @@ function App() {
         <Route path="/shipping-policy" element={<ShippingPolicy />} />
         <Route path="/terms-of-service" element={<Services />} />
         <Route path="/privacy-policy" element={<PrivacyPolicy />} />
-        <Route path="/men-tops" element={<MenTops />} />
-        <Route path="/men-bottoms" element={<MenBottoms />} />
-        <Route path="/sale" element={<Sale />} />
-        <Route path="/bundle-deals" element={<BundleDeals />} />
-        <Route path="/full-sleeve-t-shirts" element={<FullSleeveTShirts />} />
-        <Route path="/shorts" element={<Shorts />} />
+        <Route path="/collections/men-tops" element={<MenTops />} />
+        <Route path="/collections/men-bottoms" element={<MenBottoms />} />
+        <Route path="/collections/sale" element={<Sale />} />
+        <Route path="/collection/bundle-deals" element={<BundleDeals />} />
+        <Route path="/collections/full-sleeve-t-shirts" element={<FullSleeveTShirts />} />
+        <Route path="/collections/shorts" element={<Shorts />} />
         <Route path="/products/:id" element={<ProductDetail />} />
         <Route path="/checkout/:id" element={<CheckoutPage />} />
         <Route path="/cart" element={<CartModal />}/>

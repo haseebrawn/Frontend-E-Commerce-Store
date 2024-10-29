@@ -60,21 +60,21 @@ const NavBar = () => {
                     <a href="#" className="site_nav_dropdown_link">Trousers</a>
                   </li>
                   <li className="site_nav_li">
-                    <a href="full-sleeve-t-shirts" className="site_nav_dropdown_link">Full Sleeve T-Shirts</a>
+                    <a href="/collections/full-sleeve-t-shirts" className="site_nav_dropdown_link">Full Sleeve T-Shirts</a>
                   </li>
                   <li className="site_nav_li">
                     <a href="#" className="site_nav_dropdown_link">T-Shirts</a>
                   </li>
                   <li className="site_nav_li">
-                    <a href="/shorts" className="site_nav_dropdown_link">Shorts</a>
+                    <a href="/collections/shorts" className="site_nav_dropdown_link">Shorts</a>
                   </li>
                 </ul>
               </li>
               <li className="site_nav_li">
-                <a href="/sale" className="site_nav_link">⚡Sale</a>
+                <a href="/collections/sale" className="site_nav_link">⚡Sale</a>
               </li>
               <li className="site_nav_li">
-                <a href="/bundle-deals" className="site_nav_link">🔥Bundle Deals</a>
+                <a href="/collections/bundle-deals" className="site_nav_link">🔥Bundle Deals</a>
               </li>
             </ul>
           </div>
