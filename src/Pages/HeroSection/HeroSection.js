@@ -21,7 +21,9 @@ const HeroSection = () => {
             <div className="hero-link">
               <div className="animation-cropper">
                 <div className="animation-contents">
-                  <Button href="#" class_name="btn_Shop" btn_label="Shop Now" />
+                  <Button 
+                  click_event={() => (window.location.href = "/collections/best-sellers")}
+                  class_name="btn_Shop" btn_label="Shop Now" />
                 </div>
               </div>
             </div>

@@ -45,7 +45,7 @@ const Category = () => {
                 <a href="/collections/men-tops">
                   <Button class_name="btn-button" btn_label="Men Tops"/>
                 </a>
-                <a href="/collection/men-bottoms">
+                <a href="/collections/men-bottoms">
                 <Button class_name="btn-button" btn_label="Men Bottoms"/>
                 </a>
               </div>

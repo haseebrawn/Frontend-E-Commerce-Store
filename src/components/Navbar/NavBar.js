@@ -45,25 +45,25 @@ const NavBar = () => {
                 </a>
                 <ul className="site_nav_dropdown_ul">
                   <li className="site_nav_li">
-                    <a href="#" className="site_nav_dropdown_link">Best Sellers</a>
+                    <a href="/collections/best-sellers" className="site_nav_dropdown_link">Best Sellers</a>
                   </li>
                   <li className="site_nav_li">
-                    <a href="#" className="site_nav_dropdown_link">New Arrivals</a>
+                    <a href="/collections/new-arrivals" className="site_nav_dropdown_link">New Arrivals</a>
                   </li>
                   <li className="site_nav_li">
-                    <a href="#" className="site_nav_dropdown_link">Summer Twinsets</a>
+                    <a href="/collections/summer-twinsets" className="site_nav_dropdown_link">Summer Twinsets</a>
                   </li>
                   <li className="site_nav_li">
-                    <a href="#" className="site_nav_dropdown_link">Sweatshirts & Hoodies</a>
+                    <a href="/collections/sweatshirts" className="site_nav_dropdown_link">Sweatshirts & Hoodies</a>
                   </li>
                   <li className="site_nav_li">
-                    <a href="#" className="site_nav_dropdown_link">Trousers</a>
+                    <a href="/collections/trousers" className="site_nav_dropdown_link">Trousers</a>
                   </li>
                   <li className="site_nav_li">
                     <a href="/collections/full-sleeve-t-shirts" className="site_nav_dropdown_link">Full Sleeve T-Shirts</a>
                   </li>
                   <li className="site_nav_li">
-                    <a href="#" className="site_nav_dropdown_link">T-Shirts</a>
+                    <a href="/collections/t-shirts" className="site_nav_dropdown_link">T-Shirts</a>
                   </li>
                   <li className="site_nav_li">
                     <a href="/collections/shorts" className="site_nav_dropdown_link">Shorts</a>

@@ -26,6 +26,11 @@ import Slider from "./Pages/Slider/Slider";
 import ProductDetail from "./components/Product Detail/ProductDetail";
 import CheckoutPage from "./components/Checkout Page/CheckoutPage";
 import CartModal from "./components/Cart Modal/CartModal";
+import BestSellers from "./components/Best Sellers/BestSellers";
+import Trousers from "./components/Trousers/Trousers";
+import TShirts from "./components/T-Shirts/TShirts";
+import Sweatshirts from "./components/Sweatshirts/Sweatshirts";
+import SummerTwinsets from "./components/Summer Twinsets/SummerTwinsets";
 
 function App() {
   const location = useLocation();  // Get the current location
@@ -51,6 +56,8 @@ function App() {
           element={
             <>
               <Category />
+              <TShirts />
+             <Trousers />
               <FullSleeveTShirts />
               <Slider />
               <ShopNow />
@@ -75,6 +82,12 @@ function App() {
         <Route path="/products/:id" element={<ProductDetail />} />
         <Route path="/checkout/:id" element={<CheckoutPage />} />
         <Route path="/cart" element={<CartModal />}/>
+        <Route path="/collections/best-sellers" element={<BestSellers />}/>
+        <Route path="/collections/trousers" element={<Trousers />} />
+        <Route path="/collections/t-shirts" element={<TShirts />} />
+        <Route path="/collections/sweatshirts" element={<Sweatshirts />} />
+        <Route path="/collections/twinsets" element={<SummerTwinsets />} />
+        <Route path="/collections/summer-twinsets" element={<SummerTwinsets />}/>
       </Routes>
 
       {/* Conditionally render Footer */}

@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { Card } from "react-bootstrap";
 import "./ProductCard.css";
 import { FaStar } from "react-icons/fa";
-import { Link } from "react-router-dom";
 
 const ProductCard = ({ product }) => {
   const { _id, images, name, reviewCount, price, regularprice, sizes } = product;
@@ -32,7 +31,7 @@ const ProductCard = ({ product }) => {
   };
 
   return (
-    <Link to={`/products/${_id}`} style={{ textDecoration: "none" }}>
+    <div onClick={() => (window.location.href = `/products/${_id}`)} style={{ textDecoration: "none", cursor: "pointer" }}>
       <Card className="card border-none">
         
         {/* Conditional badge rendering */}
@@ -73,7 +72,7 @@ const ProductCard = ({ product }) => {
           </Card.Text>
         </Card.Body>
       </Card>
-    </Link>
+    </div>
   );
 };
 

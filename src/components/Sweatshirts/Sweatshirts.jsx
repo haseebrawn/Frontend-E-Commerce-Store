@@ -1,17 +1,17 @@
 import React, {useState, useEffect} from "react";
 import { Row, Col } from "react-bootstrap";
-import "./MenTops.css";
+import "./Sweatshirts.css";
 import ProductCard from "../Product Card/ProductCard";
 import axios from "axios";
 
-const MenTops = () => {
+const Sweatshirts = () => {
   const [products, setProducts] = useState([]);
 
   // Fetch products by category from the API
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await axios.get(`${process.env.REACT_APP_PORT}/api/product/category/men-tops`);
+        const response = await axios.get(`${process.env.REACT_APP_PORT}/api/product/category/sweatshirts`);
         // Construct the image URL for each product
         const updatedProducts = response.data.data.product.map(product => ({
           ...product,
@@ -30,7 +30,7 @@ const MenTops = () => {
   return (
     <div className="collection">
       <div className="collection_title">
-        <h2>Men Tops</h2>
+        <h2>Sweatshirts & Hoodies</h2>
       </div> 
       <div className="collection_box">
         <Row>
@@ -45,7 +45,7 @@ const MenTops = () => {
   );
 };
 
-export default MenTops;
+export default Sweatshirts;
 
 
 

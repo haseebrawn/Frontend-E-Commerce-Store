@@ -39,7 +39,7 @@ const ShopNow = () => {
            </div>
             <div className="subscribe_box_left_box">
               <Button
-                href="#"
+                click_event={() => (window.location.href = "/collections/best-sellers")}
                 class_name="button-Shop"
                 btn_label="Shop Now"
               />

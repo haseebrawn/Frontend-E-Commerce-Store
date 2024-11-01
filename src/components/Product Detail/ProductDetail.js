@@ -6,6 +6,7 @@ import ContactForm from "../ContactForm/ContactForm";
 import ReviewForm from "../ReviewForm/ReviewForm";
 import CartModal from "../Cart Modal/CartModal";
 import { Link } from "react-router-dom";
+import Button from "../Button/Button";
 
 const ProductDetail = () => {
   const { id } = useParams();
@@ -163,21 +164,25 @@ const ProductDetail = () => {
           </div>
 
           {selectedUnavailableSize ? (
-            <button className="sold-out-button">Sold Out</button>
+            <Button class_name="sold-out-button"
+            btn_label='Sold Out'
+            ></Button>
           ) : (
             <>
-              <button
-                className="add-to-cart" // Keep button styling unchanged
-                onClick={handleAddToCart}
+              <Button
+                btn_label='Add to Cart'
+                class_name="add-to-cart" // Keep button styling unchanged
+                click_event={handleAddToCart}
               >
-                Add to Cart
-              </button>
+              </Button>
               <Link
-              className="buy-now-link"
+                className="buy-now-link"
                 to={`/checkout/${product._id}`}
                 state={{ product: product, selectedSize: selectedSize }}
               >
-                <button className="buy-now">Buy it now</button>
+                <Button 
+                btn_label='Buy it now'
+                class_name="buy-now"></Button>
               </Link>
             </>
           )}
