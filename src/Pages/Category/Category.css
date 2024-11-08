@@ -1,3 +1,5 @@
+Second CSS for this code  /
+
 .index-section{
     margin: 34px 0;
 }
@@ -67,45 +69,111 @@ img[data-sizes=auto] {
 }
 .callout-image {
     position: absolute;
-    transition: transform 2.5s cubic-bezier(0.39, 0.68, 0.29, 1) 0.5s;
+    /* / transition: transform 2.5s cubic-bezier(0.39, 0.68, 0.29, 1) 0.5s; / */
     z-index: 1;
     background-color: #ffffff;
     background-color: var(--colorBody);
-    opacity: 1;
-    transition: opacity 0.4s ease;
+    /* / opacity: 1; /
+    / transition: opacity 0.4s ease; / */
 }
 img{
-    /* max-width: 100%; */
+    /* / max-width: 100%; / */
     border: 0 none;
     overflow-clip-margin: content-box;
     overflow: clip;
 }
-.callout-image:nth-of-type(2) {
-    transform: translate3d(-64px, -30px, 0);
+/* .callout-image:nth-of-type(1){
+    visibility: hidden;
+} */
+.callout-image:nth-of-type(2){
+    transform: translate3d(-128px, -40px, 0);
+    opacity: 0;
+    animation: moveIn 2.5s cubic-bezier(0.39, 0.68, 0.29, 1) 0.5s forwards;
 }
+  
+/* / Define the keyframes for the animation / */
+@keyframes moveIn {
+    0% {
+        transform: translate3d(-64px, -30px, 0);
+        opacity: 0;
+    }
+    100% {
+    
+        transform: translate3d(-128px, -40px, 0);
+        opacity: 1;
+    }
+}
+/* .callout-image:nth-of-type(2) {
+    transform: translate3d(-64px, -30px, 0);
+} */
 .callout-image:nth-of-type(2) {
     top: 40px;
     left: 0;
     max-width: 90px;
 }
-.callout-image:nth-of-type(3) {
-    transform: translate3d(64px, 13%, 0);
+.callout-image:nth-of-type(3){
+    transform: translate3d(120px, 13%, 0);
+    opacity: 0;
+    animation: moveIn2 2.5s cubic-bezier(0.39, 0.68, 0.29, 1) 0.5s forwards;
+}
+  
+/* / Define the keyframes for the animation / */
+@keyframes moveIn2 {
+    0% {
+        transform: translate3d(64px, 13%, 0);
+        opacity: 0;
+    }
+    100% {
+    
+        transform: translate3d(120px, 13%, 0);
+        opacity: 1;
+    }
 }
 .callout-image:nth-of-type(3) {
     bottom: 40px;
     right: 0;
     max-width: 80px;
 }
-.callout-image:nth-of-type(4) {
-    transform: translate3d(-50px, 40px, 0);
+.callout-image:nth-of-type(4){
+    transform: translate3d(-100px, 80px, 0);
+    opacity: 0;
+    animation: moveIn3 2.5s cubic-bezier(0.39, 0.68, 0.29, 1) 0.5s forwards;
+}
+  
+/* / Define the keyframes for the animation / */
+@keyframes moveIn3 {
+    0% {
+        transform: translate3d(-50px, 40px, 0);
+        opacity: 0;
+    }
+    100% {
+    
+        transform: translate3d(-100px, 80px, 0);
+        opacity: 1;
+    }
 }
 .callout-image:nth-of-type(4) {
     bottom: 40px;
     left: 0;
     max-width: 100px;
 }
-.callout-image:nth-of-type(5) {
-    transform: translate3d(40px, 10px, 0);
+.callout-image:nth-of-type(5){
+    transform: translate3d(80px, 40px, 0);
+    opacity: 0;
+    animation: moveIn4 2.5s cubic-bezier(0.39, 0.68, 0.29, 1) 0.5s forwards;
+}
+  
+/* / Define the keyframes for the animation / */
+@keyframes moveIn4 {
+    0% {
+        transform: translate3d(40px, 10px, 0);
+        opacity: 0;
+    }
+    100% {
+    
+        transform: translate3d(80px, 40px, 0);
+        opacity: 1;
+    }
 }
 .callout-image:nth-of-type(5) {
     top: 40px;
@@ -113,7 +181,7 @@ img{
     max-width: 50px;
 }
 
-/* Right side */
+/* / Right side / */
 
 .feature-row-text {
     /* min-width: 43%;
@@ -187,9 +255,9 @@ h2{
     .callout-images-centered{
         width: 280px;
     }
-    .callout-image:nth-of-type(2) {
+    /* .callout-image:nth-of-type(2) {
         transform: translate3d(-128px, -40px, 0);
-    }
+    } */
     .callout-image:nth-of-type(2) {
         max-width: 180px;
     }

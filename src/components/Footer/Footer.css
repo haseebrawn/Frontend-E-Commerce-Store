@@ -2,6 +2,7 @@
 .footer_box_social_logo{
     font-size: 15px;
     padding-top: 26px;
+    text-align: left;
 }
 .ul_footer{
     list-style: none outside;

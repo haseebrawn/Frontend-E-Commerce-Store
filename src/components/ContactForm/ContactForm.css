@@ -40,7 +40,7 @@
     height: 100px;
 }
 
-.contact-form button {
+.contact-form-button {
     display: flex;
     background-color: #000;
     color: #fff;
@@ -50,6 +50,7 @@
     cursor: pointer;
     text-transform: uppercase;
     letter-spacing: 1px;
+    margin-bottom: 15px;
 }
 .contact-form button:hover{
     background: url('../../../public/arrow_white.png');

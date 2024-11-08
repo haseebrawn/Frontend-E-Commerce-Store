@@ -190,7 +190,6 @@ const ProductDetail = () => {
           <ContactForm />
         </div>
       </div>
-
       <div>
         <ReviewForm />
       </div>

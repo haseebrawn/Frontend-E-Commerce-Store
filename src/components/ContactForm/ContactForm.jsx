@@ -3,6 +3,7 @@ import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons';
 import './ContactForm.css';
+import Button from '../Button/Button';
 
 const ContactForm = () => {
     const [isFormVisible, setIsFormVisible] = useState(false);
@@ -79,7 +80,10 @@ const ContactForm = () => {
                                 required
                             />
                         </div>
-                        <button type="submit">Send</button>
+                        <Button
+                         btn_label="Send"
+                         class_name="contact-form-button"
+                         type="submit" />
                     </form>
                 </div>
             )}

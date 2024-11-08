@@ -1,6 +1,9 @@
-.app_main_div{
-    background-image: url('../public//image.webp');
-    background-repeat: no-repeat; 
+  
+  /* Apply the background and animation to .app_main_div */
+  .app_main_div {
+    background-image: url('../public/image.webp');
+    background-repeat: no-repeat;
     background-size: cover;
     background-position: center center;
-}
+  }
+  
