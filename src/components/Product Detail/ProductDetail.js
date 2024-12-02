@@ -9,7 +9,7 @@ import { Link } from "react-router-dom";
 import Button from "../Button/Button";
 
 const ProductDetail = () => {
-  const { id } = useParams();
+  const { slug } = useParams();
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -18,14 +18,15 @@ const ProductDetail = () => {
   const [cartItems, setCartItems] = useState([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
 
+  console.log("Slug from params:", slug);
+
   useEffect(() => {
     const fetchProduct = async () => {
       try {
         const response = await axios.get(
-          `${process.env.REACT_APP_PORT}/api/product/${id}`
+          `${process.env.REACT_APP_PORT}/api/product/${slug}`
         );
-        setProduct(response.data.data.product);
-        console.log("Product_id", response.data.data.product);
+        setProduct(response.data.data.product);    
         setLoading(false);
       } catch (err) {
         setError(err.response?.data?.message || "Something went wrong");
@@ -33,7 +34,8 @@ const ProductDetail = () => {
       }
     };
     fetchProduct();
-  }, [id]);
+  });
+
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>{error}</p>;

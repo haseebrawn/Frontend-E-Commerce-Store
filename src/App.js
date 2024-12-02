@@ -79,7 +79,7 @@ function App() {
         <Route path="/collection/bundle-deals" element={<BundleDeals />} />
         <Route path="/collections/full-sleeve-t-shirts" element={<FullSleeveTShirts />} />
         <Route path="/collections/shorts" element={<Shorts />} />
-        <Route path="/products/:id" element={<ProductDetail />} />
+        <Route path="/collections/:category/products/:slug" element={<ProductDetail />} />
         <Route path="/checkout/:id" element={<CheckoutPage />} />
         <Route path="/cart" element={<CartModal />}/>
         <Route path="/collections/best-sellers" element={<BestSellers />}/>

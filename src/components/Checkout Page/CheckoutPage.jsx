@@ -1,8 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { Row, Col, Container, Form, Button } from "react-bootstrap";
+import { Row, Col, Container, Form,} from "react-bootstrap";
+import Button from "../Button/Button";
 import { useLocation, Link } from "react-router-dom";
 import { LiaShoppingBagSolid } from "react-icons/lia";
+import {loadStripe} from '@stripe/stripe-js';
 import "./CheckoutPage.css";
+
+
+const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLIC_KEY);
+
 
 const CheckoutPage = () => {
   const location = useLocation();
@@ -30,6 +36,83 @@ const CheckoutPage = () => {
     return <p>No product data found. Please go back and select a product.</p>;
   }
 
+  const handleOrderSubmit = async () => {
+    const token = localStorage.getItem("authToken"); // Replace with your auth token logic
+
+    if (!token) {
+      alert("Please log in to complete your order.");
+      // window.location.href = "/login";
+      return;
+    }
+
+    const orderData = {
+      productId: product._id,
+      sizes: [{ size: selectedSize, quantity: 1 }], // Example size selection
+    };
+
+    try {
+      const response = await fetch(`${process.env.REACT_APP_PORT}/api/orders`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(orderData),
+      });
+
+      if (response.ok) {
+        alert("Order placed successfully!");
+        window.location.href = "/orders"; // Redirect to order history or confirmation page
+      } else {
+        const error = await response.json();
+        alert(`Failed to place order: ${error.message}`);
+      }
+    } catch (error) {
+      console.error("Error placing order:", error);
+      alert("An error occurred. Please try again.");
+    }
+  };
+
+    
+
+   // Stripe payment Integration 
+
+  const handlePayment = async () => {
+    const stripe = await stripePromise;
+
+    const body = {
+      productId: product._id,
+      sizes: [{ size: selectedSize, quantity: 1 }],
+      total,
+    };
+
+    try {
+      const response = await fetch(
+        `${process.env.REACT_APP_PORT}/api/stripe/create-checkout-session`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(body),
+        }
+      );
+
+      const session = await response.json();
+      if (session.error) {
+        alert(`Failed to create checkout session: ${session.error}`);
+        return;
+      }
+
+      const result = await stripe.redirectToCheckout({ sessionId: session.id });
+      if (result.error) {
+        console.error(result.error.message);
+        alert("Payment failed. Please try again.");
+      }
+    } catch (error) {
+      console.error("Error with Stripe checkout:", error);
+      alert("An error occurred. Please try again.");
+    }
+  };
+
   return (
     <Container className="checkout-page">
       <Row>
@@ -41,12 +124,12 @@ const CheckoutPage = () => {
               </a>
             </Col>
             <Col lg={2} className="checkout-icon">
-              <a href="/" className="text-black">
+              <a href="#" className="text-black">
                 <LiaShoppingBagSolid />
               </a>
             </Col>
           </Row>
-          
+
           {/* Contact Form */}
           <form className="form-bottom">
             <Row className="mb-0">
@@ -126,7 +209,8 @@ const CheckoutPage = () => {
             <label className="section-title">Shipping method</label>
             <div className="section-box">
               <span>
-                Delivery Charges {subtotal >= 2000 ? "Free" : "For Orders Less Than 2000"}
+                Delivery Charges{" "}
+                {subtotal >= 2000 ? "Free" : "For Orders Less Than 2000"}
               </span>
               <span className="price">Rs {shipping}</span>
             </div>
@@ -147,7 +231,11 @@ const CheckoutPage = () => {
           <div className="section billing-section">
             <label className="section-title">Billing address</label>
             <div className="billing-options">
-              <div className={`checkbox-billing ${!isDifferentAddress ? "active" : ""}`}>
+              <div
+                className={`checkbox-billing ${
+                  !isDifferentAddress ? "active" : ""
+                }`}
+              >
                 <input
                   className="shipping-input"
                   type="radio"
@@ -159,64 +247,26 @@ const CheckoutPage = () => {
                 <label htmlFor="sameAsShipping">Same as shipping address</label>
               </div>
 
-              <div className={`checkbox-billing ${isDifferentAddress ? "active" : ""}`}>
-                <input
-                  className="diffrent-billing-input"
-                  type="radio"
-                  id="differentBilling"
-                  name="billingAddress"
-                  onChange={handleAddressChange}
-                />
-                <label htmlFor="differentBilling">Use a different billing address</label>
-              </div>
-            </div>
+              {/* Stripe Checkout Form */}
+              {/* <form onSubmit={handleStripeCheckout}> */}
+              {/* /</form><button type="submit">Checkout</button> */}
+              {/* </form>/ */}
 
-            {isDifferentAddress && (
-              <div className="billing-form">
-                <Form.Group controlId="billingCountry">
-                  <Form.Control as="select" defaultValue="Pakistan">
-                    <option value="Pakistan">Pakistan</option>
-                    <option value="India">India</option>
-                    <option value="USA">USA</option>
-                    <option value="UK">UK</option>
-                  </Form.Control>
-                </Form.Group>
-                <Form.Group>
-                <Row>
-                  <Col>
-                  <Form.Control type="text" placeholder="First name" required />
-                  </Col>
-                  <Col>
-                  <Form.Control type="text" placeholder="Last name" required />
-                  </Col>
-                </Row>
-                </Form.Group>
-                <Form.Group>
-                  <Form.Control
-                    type="text"
-                    placeholder="Complete address required"
-                    required
-                  />
-                </Form.Group>
-                <Row>
-                  <Col>
-                    <Form.Control type="text" placeholder="City" required />
-                  </Col>
-                  <Col>
-                    <Form.Control type="text" placeholder="Postal code (optional)" />
-                  </Col>
-                </Row>
-                <Form.Group>
-                  <Form.Control type="text" placeholder="Phone (optional)" />
-                </Form.Group>
-              </div>
-            )}
+              {/* <form action="/api/stripe/create-checkout-session" method="POST">
+                <button type="submit">Checkout</button>
+              </form> */}
+            </div>
           </div>
 
           {/* Complete Order Button */}
           <Row className="section complete-order-section">
             <Col lg={12}>
-              <Button type="submit" className="complete-order-btn">
+              <Button
+                btn_label="Complete Order"
+                type="button"
+                class_name="complete-order-btn"
+                click_event={handleOrderSubmit}
+              >
                 Complete order
               </Button>
             </Col>
@@ -275,6 +325,12 @@ const CheckoutPage = () => {
               </Row>
             </div>
           </Row>
+                <Button 
+                btn_label="Check Out"
+                type="button" 
+                class_name="btn-checkout"
+                click_event={handlePayment}
+                ></Button>
         </Col>
       </Row>
     </Container>

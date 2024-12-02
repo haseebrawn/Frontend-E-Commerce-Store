@@ -4,14 +4,11 @@ import "./ProductCard.css";
 import { FaStar } from "react-icons/fa";
 
 const ProductCard = ({ product }) => {
-  const { _id, images, name, reviewCount, price, regularprice, sizes } = product;
+  const { slug, images, name, reviewCount, price, regularprice, sizes, category } = product;
 
-  const allSizes = ['S', 'M', 'L', 'XL'];
-
-  // State to track selected star index
+  const allSizes = ["S", "M", "L", "XL"];
   const [selectedStar, setSelectedStar] = useState(null);
 
-  // Function to handle star click
   const handleStarClick = (index) => {
     if (selectedStar === index) {
       setSelectedStar(null);
@@ -20,24 +17,25 @@ const ProductCard = ({ product }) => {
     }
   };
 
-  // Calculate discount
   const discount = regularprice - price;
   const isOnSale = discount > 0;
-  const isSoldOut = !sizes.some(size => size.quantity > 0); // Check if all sizes are sold out
+  const isSoldOut = !sizes.some((size) => size.quantity > 0);
 
-  // Function to check if a size is available
   const isSizeAvailable = (sizeName) => {
-    return sizes.some(size => size.name === sizeName && size.quantity > 0);
+    return sizes.some((size) => size.name === sizeName && size.quantity > 0);
   };
 
   return (
-    <div onClick={() => (window.location.href = `/products/${_id}`)} style={{ textDecoration: "none", cursor: "pointer" }}>
+    <div
+      onClick={() => {
+        window.location.href = `/collections/${category}/products/${slug}`;
+      }}
+      style={{ textDecoration: "none", cursor: "pointer" }}
+    >
       <Card className="card border-none">
-        
-        {/* Conditional badge rendering */}
         {isSoldOut && <span className="badge sold-out">Sold Out</span>}
         {isOnSale && !isSoldOut && <span className="badge sale">Sale</span>}
-        
+
         <Card.Img variant="top" src={images} alt={name} />
         <Card.Body className="card-body">
           <Card.Title className="product_title">{name}</Card.Title>
@@ -47,7 +45,11 @@ const ProductCard = ({ product }) => {
                 <FaStar
                   key={index}
                   onClick={() => handleStarClick(index)}
-                  color={selectedStar !== null && index <= selectedStar ? "yellow" : undefined}
+                  color={
+                    selectedStar !== null && index <= selectedStar
+                      ? "yellow"
+                      : undefined
+                  }
                 />
               ))}
               {reviewCount} reviews
@@ -63,7 +65,9 @@ const ProductCard = ({ product }) => {
               {allSizes.map((size, index) => (
                 <span
                   key={index}
-                  className={`size ${isSizeAvailable(size) ? "available" : "unavailable"}`}
+                  className={`size ${
+                    isSizeAvailable(size) ? "available" : "unavailable"
+                  }`}
                 >
                   {size}
                 </span>

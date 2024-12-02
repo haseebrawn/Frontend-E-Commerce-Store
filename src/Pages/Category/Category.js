@@ -1,26 +1,47 @@
 import React, { useState, useEffect } from 'react';
 import './Category.css';
+import axios from 'axios';
 import Button from '../../components/Button/Button';
 
-const imageSets = [
-  ["/men_up4.avif", "/men_up3.avif", "/men_up5.avif", "/men_side.avif", "/men_back.avif"],
-  ["/shorts2.webp", "/SweatShirts1+hoddy.webp", "/shorts5.webp", "/shorts4.webp", "/SweatShirts5+hoddy.webp"],
-  ["/Bottom1.webp", "/Bottom3.webp", "/Bottom6.webp", "/Bottom7.webp", "/Bottom12.webp"],
-  ["/sale 1.webp", "/Bottom11.webp", "/MenTops1.webp", "/Bottom5.webp", "/MenTops5.webp"],
-  ["/newarrival1.webp", "/newarrival3.webp", "/newarrival5.webp", "/newarrival7.webp", "/newarrival9.webp"],
-];
-
 const Category = () => {
-  const [currentSetIndex, setCurrentSetIndex] = useState(0);
+  const [productImages, setProductImages] = useState([]); // Holds image sets
+  const [currentSetIndex, setCurrentSetIndex] = useState(0); // Tracks which set is shown
 
+  // Fetch product images from the backend and organize them in groups of 5
   useEffect(() => {
-    // Change the image set every 10 minutes (600000 milliseconds)
+    const fetchProductImages = async () => {
+      try {
+        const response = await axios.get(
+          `${process.env.REACT_APP_PORT}/api/product/getProducts`
+        ); 
+        
+        // Access the data directly from response
+        const images = response.data.data.product.map(product => `${process.env.REACT_APP_PORT}${product.images}`); 
+  
+        // Group images into arrays of 5
+        const chunkedImages = [];
+        for (let i = 0; i < images.length; i += 5) {
+          chunkedImages.push(images.slice(i, i + 5));
+        }
+        
+        setProductImages(chunkedImages); // Set state with groups of 5 images
+      } catch (error) {
+        console.error("Error fetching product images:", error);
+      }
+    };
+  
+    fetchProductImages();
+  }, []);
+  
+
+  // Rotate through image sets every 10 minutes
+  useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentSetIndex((prevIndex) => (prevIndex + 1) % imageSets.length);
-    }, 1000000);
+      setCurrentSetIndex((prevIndex) => (prevIndex + 1) % productImages.length);
+    }, 600000); // 10 minutes in milliseconds
 
     return () => clearInterval(interval);
-  }, []);
+  }, [productImages]);
 
   return (
     <>
@@ -44,8 +65,8 @@ const Category = () => {
             <div className="feature-row-item">
               <div className="callout-images">
                 <div className="callout-images-centered">
-                  {imageSets[currentSetIndex].map((src, index) => (
-                    <img key={index} className="callout-image" src={src} alt={`Image ${index + 1}`} />
+                  {productImages[currentSetIndex]?.map((src, index) => (
+                    <img key={index} className="callout-image" src={src} alt={`Product Image ${index + 1}`} />
                   ))}
                 </div>
               </div>
