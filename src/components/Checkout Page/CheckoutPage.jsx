@@ -18,7 +18,7 @@ const CheckoutPage = () => {
   const [isDifferentAddress, setIsDifferentAddress] = useState(false);
   const [shipping, setShipping] = useState(200);
   const [subtotal] = useState(product ? product.price : 0); // Assuming price is for a single item
-  const total = subtotal + shipping;
+  const totalPrice = subtotal + shipping;
 
   useEffect(() => {
     if (subtotal >= 2000) {
@@ -77,41 +77,36 @@ const CheckoutPage = () => {
 
    // Stripe payment Integration 
 
-  const handlePayment = async () => {
-    const stripe = await stripePromise;
-
+   const handlePayment = async () => {
     const body = {
-      productId: product._id,
-      sizes: [{ size: selectedSize, quantity: 1 }],
-      total,
+        productId: product._id,
+        sizes: [{ size: selectedSize, quantity: 1 }],
+        totalPrice,
     };
 
     try {
-      const response = await fetch(
-        `${process.env.REACT_APP_PORT}/api/stripe/create-checkout-session`,
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(body),
+        const response = await fetch(`${process.env.REACT_APP_PORT}/api/stripe/create-checkout-session`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(body),
+        });
+
+        const { sessionId } = await response.json();
+        
+        const stripe = await stripePromise;
+        const result = await stripe.redirectToCheckout({ sessionId });
+
+        if (result.error) {
+            console.error(result.error.message);
+            alert("Payment failed. Please try again.");
         }
-      );
-
-      const session = await response.json();
-      if (session.error) {
-        alert(`Failed to create checkout session: ${session.error}`);
-        return;
-      }
-
-      const result = await stripe.redirectToCheckout({ sessionId: session.id });
-      if (result.error) {
-        console.error(result.error.message);
-        alert("Payment failed. Please try again.");
-      }
     } catch (error) {
-      console.error("Error with Stripe checkout:", error);
-      alert("An error occurred. Please try again.");
+        console.error("Error with Stripe checkout:", error);
+        alert("An error occurred. Please try again.");
     }
-  };
+};
+
+  
 
   return (
     <Container className="checkout-page">
@@ -246,15 +241,6 @@ const CheckoutPage = () => {
                 />
                 <label htmlFor="sameAsShipping">Same as shipping address</label>
               </div>
-
-              {/* Stripe Checkout Form */}
-              {/* <form onSubmit={handleStripeCheckout}> */}
-              {/* /</form><button type="submit">Checkout</button> */}
-              {/* </form>/ */}
-
-              {/* <form action="/api/stripe/create-checkout-session" method="POST">
-                <button type="submit">Checkout</button>
-              </form> */}
             </div>
           </div>
 
@@ -320,8 +306,8 @@ const CheckoutPage = () => {
                 <Col className="text-end">Rs. {shipping}</Col>
               </Row>
               <Row>
-                <Col className="text-start">Total</Col>
-                <Col className="text-end">Rs. {total}</Col>
+                <Col className="text-start">Total Price</Col>
+                <Col className="text-end">Rs. {totalPrice}</Col>
               </Row>
             </div>
           </Row>
