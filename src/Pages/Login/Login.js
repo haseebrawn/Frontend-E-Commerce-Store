@@ -1,20 +1,19 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import axios from "axios";
-import Button from "../../components/Button/Button";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./Login.css";
-// import { useAuth } from "../components/NavBar/AuthContext.js";
 
 const Login = () => {
-  //   const { setIsLoggedIn } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   
+  const navigate = useNavigate(); // For navigation after login
 
   const handleLogin = async (event) => {
     event.preventDefault();
     console.log("Email:", email);
     console.log("Password:", password);
+
     try {
       const response = await axios.post(
         "http://localhost:8000/api/users/login",
@@ -22,25 +21,26 @@ const Login = () => {
       );
       console.log("User logged in successfully:", response.data);
       console.log("UserId", response.data.data.user._id);
-      // Handle successful login, maybe redirect user to another page
-      // Save token to localStorage
+      
+      // Save token and user info in localStorage
       localStorage.setItem("token", response.data.token);
       localStorage.setItem("userId", response.data.data.user._id);
       localStorage.setItem("isLoggedIn", "true");
-      //   setIsLoggedIn(true);
-      //   router.push("/");
+
+      // Redirect to home page after successful login
+      navigate("/");  // Home page route
+
     } catch (error) {
       console.error("Login failed:", error);
-      // Handle login failure, maybe display error message to user
       if (
         error.response &&
         (error.response.status === 401 || error.response.status === 404)
       ) {
-        // Invalid email or token expired, don't redirect
+        // Invalid email or password
         alert("Invalid email or password");
       } else {
-        // Other errors, maybe display different error message
-        alert("Invalid email or password");
+        // Other errors
+        alert("Error occurred. Please try again");
       }
     }
   };
@@ -59,7 +59,6 @@ const Login = () => {
               </label>
               <input
                 type="email"
-                // placeholder="Email"
                 value={email}
                 className="input_user_box"
                 onChange={(e) => setEmail(e.target.value)}
@@ -73,7 +72,6 @@ const Login = () => {
               <input
                 type="password"
                 value={password}
-                // placeholder="Password"
                 className="input_user_box"
                 onChange={(e) => setPassword(e.target.value)}
               />

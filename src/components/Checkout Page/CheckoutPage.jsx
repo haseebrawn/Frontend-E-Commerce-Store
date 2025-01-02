@@ -38,7 +38,7 @@ const CheckoutPage = () => {
 
   const handleOrderSubmit = async () => {
     const token = localStorage.getItem("authToken"); // Replace with your auth token logic
-
+  
     if (!token) {
       alert("Please log in to complete your order.");
       // window.location.href = "/login";
@@ -78,17 +78,27 @@ const CheckoutPage = () => {
    // Stripe payment Integration 
 
    const handlePayment = async () => {
-    const body = {
-        productId: product._id,
-        sizes: [{ size: selectedSize, quantity: 1 }],
-        totalPrice,
+    const userId = localStorage.getItem("userId"); // Retrieve userId
+    if (!userId) {
+      alert("User is not logged in. Please log in to proceed.");
+      return;
+    }
+
+
+    const payload = {
+      userId: userId,// Replace `user` with your user object
+      productId: product._id, // Replace `product` with your selected product
+      sizes: [{ size: selectedSize, quantity: 1 }], // Replace as necessary
+      totalPrice: subtotal + shipping, // Use calculated total price
     };
+  
+    console.log("Payload sent to API:", payload);
 
     try {
         const response = await fetch(`${process.env.REACT_APP_PORT}/api/stripe/create-checkout-session`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(body),
+            body: JSON.stringify(payload),
         });
 
         const { sessionId } = await response.json();
